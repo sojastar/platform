@@ -4,9 +4,8 @@ class Animation
               :status,
               :clips, :current_clip
 
-  def initialize(path,width,height,clips,first_clip)
-    @path         = path
-
+  #def initialize(path,width,height,clips,first_clip)
+  def initialize(width,height,clips,first_clip)
     @width        = width
     @height       = height
 
@@ -26,7 +25,8 @@ class Animation
                       y:                  0,
                       w:                  @width,
                       h:                  @height,
-                      path:               @path,
+                      #path:               @path,
+                      path:               @current_clip[:file],
                       flip_horizontally:  false,
                       flip_vertically:    false,
                       tile_x:             0,
@@ -43,10 +43,10 @@ class Animation
     @status       = :running
   end
 
-  def path=(new_path)
-    @path         = new_path
-    @frame[:path] = new_path
-  end
+  #def path=(new_path)
+  #  @path         = new_path
+  #  @frame[:path] = new_path
+  #end
 
   def speed=(new_speed)
     @current_clip[:speed] = new_speed
@@ -55,6 +55,7 @@ class Animation
   def set_clip(clip)
     @current_clip               = @clips[clip]
     @frame_index                = 0
+    @frame[:path]               = @current_clip[:file]
     @max_frames                 = @current_clip[:frames].length
     @mode                       = @current_clip[:mode] 
     @frame[:flip_horizontally]  = @current_clip[:flip_horizontally]
