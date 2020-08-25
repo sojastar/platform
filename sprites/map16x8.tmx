@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-up" width="16" height="8" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="1">
+ <editorsettings>
+  <export target="map16x8.csv" format="csv"/>
+ </editorsettings>
+ <tileset firstgid="1" source="tiles.tsx"/>
+ <layer id="1" name="tile_layer1" width="16" height="8" visible="0">
+  <data encoding="base64" compression="zstd">
+   KLUv/WAAAa0DAPQDAQAAAB0AHAAAAB4BFgAOEAAIAAAABgANBQEHAAAABAAAABIAAAAZAAAAEwUpAAAAKjMaBzoBAgcAAAABAAAAF6BwKCW2d5CCFY12m34Yi+ExO7+EA0NZvp01kMl2j4V9kqY+wvKfHMif/LIwxw2aGt7cAQ==
+  </data>
+ </layer>
+ <layer id="2" name="tile_layer2" width="16" height="8">
+  <data encoding="base64" compression="zstd">
+   KLUv/WAAAa0DAPQDAQAAAB0AHAAAAB4BFgAOEAAIAAAABgANBQEHAAAABAAAABIAAAAZAAAAEwUpAAAALDMaBzoBAgcAAAABAAAAF6BwKCW2d5CCFY12m34Yi+ExO7+EA0NZvp01kMl2j4V9kqY+wvKfHMif/LIwxw2aGt7cAQ==
+  </data>
+ </layer>
+</map>
