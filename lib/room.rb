@@ -16,7 +16,7 @@ class Room
   end
 
   def set_start_position(x,y)
-    @start_x, @start_y  = x, y
+    @start_x, @start_y  = @tile_size * x, @tile_size * y
   end
 
   def set_tilemaps(csv_files)
@@ -106,15 +106,34 @@ class Room
 
 
   # ---=== UPDATE : ===---
-  def update(args)
+  def update(args,player)
     @current_tilemap = ( @current_tilemap + 1 ) % @tilemaps.length if args.tick_count % @animation_speed == 0
   end
 
 
   # ---=== RENDER : ===---
-  def render(args)
+  def render(args,player)
+
+    # --- 1. Background :
+    args.render_target(:room_content).sprites <<  { x:        0,
+                                                    y:        0,
+                                                    w:        width  * @tile_size,
+                                                    h:        height * @tile_size,
+                                                    path:     @tilemaps[@current_tilemap][:render_target],
+                                                    source_x: 0,
+                                                    source_y: 0,
+                                                    source_w: @tile_size * width,
+                                                    source_h: @tile_size * height }
+
+    # --- 2. Enemies, projectiles, traps, stuff... :
+    
+
+    # --- 3. Player :
+    args.render_target(:room_content).sprites <<  player.render(args)
+
+    :room_content
     #{ x: 0, y: 0, w: width * @tile_size, h: height * @tile_size, path: @tilemaps[@current_tilemap][:render_target] }
-    @tilemaps[@current_tilemap][:render_target]
+    #@tilemaps[@current_tilemap][:render_target]
   end
 
   def blit_tile(tile_index,x,y)
@@ -133,4 +152,13 @@ class Room
   # ---=== EXITS : ===---
   def exit(tile_x,tile_y)
   end
+
+
+  # ---=== SERIALIZATION : ===---
+  def serialize
+    { width: width, height: height }
+  end
+
+  def inspect() serialize.to_s  end
+  def to_s()    serialize.to_s  end 
 end

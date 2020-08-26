@@ -25,30 +25,39 @@ class Camera
 
 
   # ---=== RENDER : ===---
-  def render(room,player)
-    source_x  = if    player.position[0] - @half_width <= 0          then 0
-                elsif player.position[0] + @half_width >= room.width then room.width - @width
-                else  player.position[0] - @half_width
+  def render(args,room,player)
+    source_x  = if    player.x - @half_width <= 0          then 0
+                elsif player.x + @half_width >= room.width then room.width - @width
+                else  player.x - @half_width
                 end
 
-    source_y  = if    player.position[1] - @half_height <= 0            then 0
-                elsif player.position[1] + @half_height >= room.height  then room.height - @height
-                else  player.position[1] - @half_height
+    source_y  = if    player.y - @half_height <= 0            then 0
+                elsif player.y + @half_height >= room.height  then room.height - @height
+                else  player.y - @half_height
                 end
 
     source_w  = @width
     source_h  = @height
 
-    $gtk.args.render_target(:camera).width  @width
-    $gtk.args.render_target(:camera).height @height
-    $gtk.args.render_target << { x:         @offset_x,
-                                 y:         @offset_y,
-                                 w:         @width  * @scale,
-                                 h:         @height * @scale,
-                                 path:      room.render(args),
-                                 source_x:  source_x,
-                                 source_y:  source_y,
-                                 source_w:  source_w,
-                                 source_h:  source_h }
+    args.render_target(:camera).width   @width
+    args.render_target(:camera).height  @height
+    args.render_target(:camera) <<  { x:         @offset_x,
+                                      y:         @offset_y,
+                                      w:         @width  * @scale,
+                                      h:         @height * @scale,
+                                      path:      room.render(args, player),
+                                      source_x:  source_x,
+                                      source_y:  source_y,
+                                      source_w:  source_w,
+                                      source_h:  source_h }
   end
+
+
+  # ---=== SERIALIZATION : ===---
+  def serialize
+    { width: @width, height: @height, scale: @scale, offset_x: @offset_x, offset_y: @offset_y }
+  end
+
+  def inspect() serialize.to_s  end
+  def to_s()    serialize.to_s  end 
 end

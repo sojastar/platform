@@ -1,5 +1,5 @@
 class Player
-  def self.spawn_basic_player(start_x,start_y,health)
+  def self.spawn_basic_player_at(start_x,start_y,health)
     
     # ---=== ANIMATION : ===---
     frames  = { idle: { file:   '/sprites/human_idle.png',
@@ -57,6 +57,8 @@ class Player
                     args.inputs.keyboard.key_held.right == false
                   end
                 end
+
+                set_initial_state :idle
               end
 
 

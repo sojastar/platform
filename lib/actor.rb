@@ -5,7 +5,7 @@ class Actor
   def initialize(animation,fsm,start_x,start_y)
     @animation  = animation
     
-    @machine    = machine
+    @machine    = fsm
     @machine.set_parent self
     @machine.start
 

@@ -35,8 +35,8 @@ class Sector
 
 
   # ---=== UPDATE : ===---
-  def update(args)
-    @rooms[@current_room].update(args)
+  def update(args,player)
+    @rooms[@current_room].update(args,player)
   end
 
 
@@ -44,4 +44,13 @@ class Sector
   def render(args)
     @rooms[@current_room].render(args)
   end
+
+
+  # ---=== SERIALIZATION : ===---
+  def serialize
+    { room_count: @rooms.length, rooms: @rooms.keys }
+  end
+
+  def inspect() serialize.to_s  end
+  def to_s()    serialize.to_s  end 
 end

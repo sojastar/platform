@@ -5,6 +5,9 @@ require 'lib/keymap.rb'
 require 'lib/room.rb'
 require 'lib/sector.rb'
 require 'lib/camera.rb'
+require 'lib/actor.rb'
+require 'lib/player.rb'
+require 'app/basic_player.rb'
 
 
 
@@ -36,6 +39,10 @@ def setup(args)
                                       6,        # scale
                                       608, 328  # offset
 
+  args.state.player     = Player::spawn_basic_player_at args.state.sector.current_room.start_x,
+                                                        args.state.sector.current_room.start_y,
+                                                        3
+
   args.state.setup_done = true
 end
 
@@ -51,12 +58,14 @@ def tick(args)
 
 
   # --- 2. Main Loop :
-  args.state.sector.update(args)
+  args.state.player.update(args,args.state.sector.current_room)
+  args.state.sector.update(args,args.state.player)
 
 
   # --- 3. Render :
-  args.outputs.sprites << args.state.camera.render  args.state.sector.current_room
-                                                    args.state.player
+  args.outputs.sprites << args.state.camera.render( args,
+                                                    args.state.sector.current_room,
+                                                    args.state.player )
 end
 
 
