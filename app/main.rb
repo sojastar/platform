@@ -35,9 +35,12 @@ def setup(args)
                             set_current_room(:room1)
                           end
 
-  args.state.camera     = Camera.new  64, 64,   # viewframe size
-                                      6,        # scale
-                                      608, 328  # offset
+  width, height, scale   = 64, 64, 4
+  offset_x              = ( args.grid.right - scale * width  ) / 2
+  offset_y              = ( args.grid.top   - scale * height ) / 2
+  args.state.camera     = Camera.new  width, height,      # viewframe size
+                                      scale,              # scale
+                                      offset_x, offset_y  # offset
 
   args.state.player     = Player::spawn_basic_player_at args.state.sector.current_room.start_x,
                                                         args.state.sector.current_room.start_y,

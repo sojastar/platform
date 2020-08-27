@@ -26,30 +26,31 @@ class Camera
 
   # ---=== RENDER : ===---
   def render(args,room,player)
-    source_x  = if    player.x - @half_width <= 0          then 0
-                elsif player.x + @half_width >= room.width then room.width - @width
+    source_x  = if    player.x - @half_width <= 0                 then 0
+                elsif player.x + @half_width >= room.pixel_width  then room.pixel_width - @width
                 else  player.x - @half_width
                 end
 
-    source_y  = if    player.y - @half_height <= 0            then 0
-                elsif player.y + @half_height >= room.height  then room.height - @height
+    source_y  = if    player.y - @half_height <= 0                  then 0
+                elsif player.y + @half_height >= room.pixel_height  then room.pixel_height - @height
                 else  player.y - @half_height
                 end
 
     source_w  = @width
     source_h  = @height
 
+    #puts "offset: #{@offset_x},#{@offset_y} - size: #{@width * @scale},#{@height * @scale} - source: #{source_x},#{source_y},#{source_w},#{source_h}"
     args.render_target(:camera).width   @width
     args.render_target(:camera).height  @height
-    args.render_target(:camera) <<  { x:         @offset_x,
-                                      y:         @offset_y,
-                                      w:         @width  * @scale,
-                                      h:         @height * @scale,
-                                      path:      room.render(args, player),
-                                      source_x:  source_x,
-                                      source_y:  source_y,
-                                      source_w:  source_w,
-                                      source_h:  source_h }
+    args.render_target(:camera).sprites <<  { x:         @offset_x,
+                                              y:         @offset_y,
+                                              w:         @scale * @width,
+                                              h:         @scale * @height,
+                                              path:      room.render(args, player),
+                                              source_x:  source_x,
+                                              source_y:  source_y,
+                                              source_w:  source_w,
+                                              source_h:  source_h }
   end
 
 

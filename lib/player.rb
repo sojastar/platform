@@ -12,8 +12,10 @@ class Player < Actor
     @machine.update(args)
     @animation.update
 
-    @x += 1 if args.inputs.keyboard.key_held.right
-    @x -= 1 if args.inputs.keyboard.key_held.left
+    if @machine.current_state != :idle
+      @x += 1 if args.inputs.keyboard.key_held.right
+      @x -= 1 if args.inputs.keyboard.key_held.left
+    end
   end
 
 

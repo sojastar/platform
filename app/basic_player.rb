@@ -4,13 +4,13 @@ class Player
     # ---=== ANIMATION : ===---
     frames  = { idle: { file:   '/sprites/human_idle.png',
                         frames: [ [0,0], [1,0] ],
-                        mode:   loop,
-                        speed:  6,
+                        mode:   :loop,
+                        speed:  12,
                         flip_horizontally:  false,
                         flip_vertically:    false },
                 walk: { file:   '/sprites/human_walk.png',
                         frames: [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0], [7,0] ],
-                        mode:   loop,
+                        mode:   :loop,
                         speed:  6,
                         flip_horizontally:  false,
                         flip_vertically:    false } }
@@ -28,11 +28,11 @@ class Player
                   end
 
                   add_event(next_state: :walking_left) do |args|
-                    args.inputs.keyboard.key_down.left
+                    args.inputs.keyboard.key_held.left
                   end
 
                   add_event(next_state: :walking_right) do |args|
-                    args.inputs.keyboard.key_down.right
+                    args.inputs.keyboard.key_held.right
                   end
                 end
 
@@ -45,6 +45,10 @@ class Player
                   add_event(next_state: :idle) do |args|
                     args.inputs.keyboard.key_held.left == false
                   end
+
+                  add_event(next_state: :walking_right) do |args|
+                    args.inputs.keyboard.key_down.right
+                  end
                 end
 
                 add_state(:walking_right) do
@@ -55,6 +59,10 @@ class Player
 
                   add_event(next_state: :idle) do |args|
                     args.inputs.keyboard.key_held.right == false
+                  end
+
+                  add_event(next_state: :walking_left) do |args|
+                    args.inputs.keyboard.key_down.left
                   end
                 end
 

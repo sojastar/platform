@@ -1,3 +1,3 @@
 - read tiles physical properties in the tileset json (and maybe find another solution than that crapy json)
 - instantiate a room only when needed.
-
+- backgrounds

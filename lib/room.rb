@@ -56,8 +56,8 @@ class Room
 
                         if    exit_tiles.first[0] == 0 then                 # exit on the left side
                           [        -@tile_size, bottom * @tile_size, @tile_size, ( top - bottom + 1 ) * @tile_size ]
-                        elsif exit_tiles.first[0] == width - 1 then         # exit on the right side
-                          [ width * @tile_size, bottom * @tile_size, @tile_size, ( top - bottom + 1 ) * @tile_size ]
+                        elsif exit_tiles.first[0] == tile_width - 1 then         # exit on the right side
+                          [ pixel_width, bottom * @tile_size, @tile_size, ( top - bottom + 1 ) * @tile_size ]
                         else
                           raise "ERROR: exit not on the edge of the room!"
                         end
@@ -68,8 +68,8 @@ class Room
 
                         if    exit_tiles.first[1] == 0 then                 # exit on the bottom
                           [ left * @tile_size,         -@tile_size, ( right - left + 1 ) * @tile_size, @tile_size ]
-                        elsif exit_tiles.first[1] == height - 1 then        # exit on the bottom
-                          [ left * @tile_size, height * @tile_size, ( right - left + 1 ) * @tile_size, @tile_size ]
+                        elsif exit_tiles.first[1] == tile_height - 1 then        # exit on the bottom
+                          [ left * @tile_size, pixel_height, ( right - left + 1 ) * @tile_size, @tile_size ]
                         else
                           raise "ERROR: exit not on the edge of the room!"
                         end
@@ -100,9 +100,11 @@ class Room
 
 
   # ---=== ACCESORS : ===---
-  def width()   @tilemaps.first[:tiles].first.length  end
-  def height()  @tilemaps.first[:tiles].length        end
-  def [](i,x,y) @tilemaps[i][y][x]                    end
+  def tile_width()    @tilemaps.first[:tiles].first.length  end
+  def tile_height()   @tilemaps.first[:tiles].length        end
+  def pixel_width()   @tile_size * tile_width               end
+  def pixel_height()  @tile_size * tile_height              end
+  def [](i,x,y)       @tilemaps[i][y][x]                    end
 
 
   # ---=== UPDATE : ===---
@@ -117,13 +119,13 @@ class Room
     # --- 1. Background :
     args.render_target(:room_content).sprites <<  { x:        0,
                                                     y:        0,
-                                                    w:        width  * @tile_size,
-                                                    h:        height * @tile_size,
+                                                    w:        pixel_width,
+                                                    h:        pixel_height,
                                                     path:     @tilemaps[@current_tilemap][:render_target],
                                                     source_x: 0,
                                                     source_y: 0,
-                                                    source_w: @tile_size * width,
-                                                    source_h: @tile_size * height }
+                                                    source_w: pixel_width,
+                                                    source_h: pixel_height }
 
     # --- 2. Enemies, projectiles, traps, stuff... :
     
@@ -132,8 +134,6 @@ class Room
     args.render_target(:room_content).sprites <<  player.render(args)
 
     :room_content
-    #{ x: 0, y: 0, w: width * @tile_size, h: height * @tile_size, path: @tilemaps[@current_tilemap][:render_target] }
-    #@tilemaps[@current_tilemap][:render_target]
   end
 
   def blit_tile(tile_index,x,y)
@@ -156,7 +156,7 @@ class Room
 
   # ---=== SERIALIZATION : ===---
   def serialize
-    { width: width, height: height }
+    { tile_width: tile_width, tile_height: tile_height, pixel_width: pixel_width, pixel_height: pixel_height }
   end
 
   def inspect() serialize.to_s  end
