@@ -1,9 +1,11 @@
 require           'minitest/pride'
+require           'json'
 
 require_relative  '../lib/fsm_machine.rb'
 require_relative  '../lib/fsm_state.rb'
 require_relative  '../lib/room.rb'
 require_relative  '../lib/sector.rb'
+require_relative  '../lib/utilities.rb'
 
 class GTK
   attr_accessor :args
@@ -12,7 +14,11 @@ class GTK
   end
 
   def read_file(filename)
-    File.read(filename)
+    File.read filename
+  end
+
+  def parse_json(json_data)
+    JSON.parse json_data
   end
 end
 

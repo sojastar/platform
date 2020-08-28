@@ -4,7 +4,9 @@ require_relative  'test_helper.rb'
 describe Room do
   it 'is created with a description block' do
     room  = Room::create_room do
-              set_tiles           '../sprites/tiles.png', 8, 8, 8
+              set_tiles           '../sprites', 'tiles.json'     # Be carefull ! The json file and ...
+                                                                  # ... the png file must be in the ...
+                                                                  # ... same directory !!!
               set_tilemaps        [ '../sprites/map16x8_tile_layer1.csv',
                                     '../sprites/map16x8_tile_layer2.csv' ]
               set_animation_speed 20
@@ -27,18 +29,20 @@ describe Room do
     assert_equal   8,                   tilemaps[1][:tiles].length
     assert_equal  :map16x8_tile_layer2, tilemaps[1][:render_target]
 
-    assert_equal  16, room.width
-    assert_equal   8, room.height
+    assert_equal  16,  room.tile_width
+    assert_equal   8,  room.tile_height
+    assert_equal  128, room.pixel_width
+    assert_equal   64, room.pixel_height
 
-    assert_equal  14, room.start_x
-    assert_equal   2, room.start_y
+    assert_equal  112, room.start_x
+    assert_equal   16, room.start_y
 
     assert_equal  2, room.exits.length
   end
 
   it 'will create its exit collision rectangles' do
     room  = Room::create_room do
-              set_tiles           '../sprites/tiles.png', 8, 8, 8
+              set_tiles           '../sprites', 'tiles.json'
               set_tilemaps        [ '../sprites/map8x8.csv' ]
               set_animation_speed 20
               set_start_position  5, 1
