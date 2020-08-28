@@ -43,7 +43,6 @@ module FSM
     def update(args)
       new_state       = @states[@current_state].update parent, args
 
-      #set_current_state(new_state) if new_state != @current_state
       if new_state != @current_state then
         if @states.keys.include? new_state then
           set_current_state new_state

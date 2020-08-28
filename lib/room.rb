@@ -1,5 +1,10 @@
 class Room
-  attr_reader :start_x, :start_y,
+  TYPES = [ :empty,
+            :block,
+            :platform ]
+
+  attr_reader :tile_size,
+              :start_x, :start_y,
               :exits
   
   # ---=== INITIALISATION : ===---
@@ -8,11 +13,20 @@ class Room
     @exits              = []
   end
 
-  def set_tiles(tilesheet,tilesheet_width,tilesheet_height,tile_size)
-    @tilesheet        = tilesheet
-    @tilesheet_width  = tilesheet_width  
-    @tilesheet_height = tilesheet_height 
-    @tile_size        = tile_size
+  def set_tiles(tiles_path,tiles_json_file) # Be carefull ! The json file and ...
+                                            # ... the png file must be in the ...
+                                            # ... same directory !!!
+    raw_data          = $gtk.read_file  tiles_path + '/' + tiles_json_file
+    tiles_data        = $gtk.parse_json raw_data
+    
+    @tilesheet        = tiles_path + '/' + tiles_data["image"]
+    @tilesheet_height = tiles_data["columns"]
+    @tilesheet_width  = tiles_data["tilecount"].div( tiles_data["columns"] )
+    @tile_size        = tiles_data["tilewidth"]
+
+    @tiles_types      = tiles_data["tiles"].map do |tile|
+                          TYPES[tile["properties"][0]["value"].to_i]
+                        end
   end
 
   def set_start_position(x,y)
@@ -100,11 +114,12 @@ class Room
 
 
   # ---=== ACCESORS : ===---
-  def tile_width()    @tilemaps.first[:tiles].first.length  end
-  def tile_height()   @tilemaps.first[:tiles].length        end
-  def pixel_width()   @tile_size * tile_width               end
-  def pixel_height()  @tile_size * tile_height              end
-  def [](i,x,y)       @tilemaps[i][y][x]                    end
+  def tile_width()      @tilemaps.first[:tiles].first.length                    end
+  def tile_height()     @tilemaps.first[:tiles].length                          end
+  def pixel_width()     @tile_size * tile_width                                 end
+  def pixel_height()    @tile_size * tile_height                                end
+  def tile_id_at(x,y)   @tilemaps[@current_tilemap][:tiles][y][x]               end
+  def tile_type_at(x,y) @tiles_types[@tilemaps[@current_tilemap][:tiles][y][x]] end
 
 
   # ---=== UPDATE : ===---
@@ -116,7 +131,9 @@ class Room
   # ---=== RENDER : ===---
   def render(args,player)
 
-    # --- 1. Background :
+    # --- 1. Backgrounds :
+    
+    # --- 2. Tiles :
     args.render_target(:room_content).sprites <<  { x:        0,
                                                     y:        0,
                                                     w:        pixel_width,
@@ -127,10 +144,10 @@ class Room
                                                     source_w: pixel_width,
                                                     source_h: pixel_height }
 
-    # --- 2. Enemies, projectiles, traps, stuff... :
+    # --- 3. Enemies, projectiles, traps, stuff... :
     
 
-    # --- 3. Player :
+    # --- 4. Player :
     args.render_target(:room_content).sprites <<  player.render(args)
 
     :room_content

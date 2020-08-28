@@ -4,7 +4,6 @@ class Animation
               :status,
               :clips, :current_clip
 
-  #def initialize(path,width,height,clips,first_clip)
   def initialize(width,height,clips,first_clip)
     @width        = width
     @height       = height
@@ -25,7 +24,6 @@ class Animation
                       y:                  0,
                       w:                  @width,
                       h:                  @height,
-                      #path:               @path,
                       path:               @current_clip[:file],
                       flip_horizontally:  false,
                       flip_vertically:    false,
@@ -42,11 +40,6 @@ class Animation
     @frame[:h]    = @height
     @status       = :running
   end
-
-  #def path=(new_path)
-  #  @path         = new_path
-  #  @frame[:path] = new_path
-  #end
 
   def speed=(new_speed)
     @current_clip[:speed] = new_speed

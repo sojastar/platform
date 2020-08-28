@@ -1,5 +1,6 @@
 class Actor
   attr_sprite
+  attr_accessor :dx, :dy
 
   # ---=== INITIALISATION : ===---
   def initialize(animation,fsm,start_x,start_y)
@@ -9,8 +10,8 @@ class Actor
     @machine.set_parent self
     @machine.start
 
-    @x          = start_x
-    @y          = start_y
+    @x, @y      = start_x, start_y
+    @dx, @dy    = 0, 0
   end
 
 

@@ -66,8 +66,29 @@ describe FSM::State do
     parent  = Object.new
     parent.instance_eval &state.setup
 
-    assert_equal  :a_state,           state.update(parent, { v: 1235, n: :some_state } )
-    assert_equal  :another_state,     state.update(parent, { v: 1234, n: :go_to_another_state } )
-    assert_equal  :yet_another_state, state.update(parent, { v: 1234, n: :go_to_yet_another_state } )
+    assert_equal  :a_state,           state.update( parent, { v: 1235, n: :some_state } )
+    assert_equal  :another_state,     state.update( parent, { v: 1234, n: :go_to_another_state } )
+    assert_equal  :yet_another_state, state.update( parent, { v: 1234, n: :go_to_yet_another_state } )
+  end
+
+  it 'executes its action' do
+    state = FSM::State.new(:a_state) do
+      define_setup do
+        instance_variable_set :@test_variable, 1234
+      end
+
+      define_action do |args|
+        @test_variable += 1
+      end
+    end
+
+    parent  = Object.new
+    parent.instance_eval &state.setup
+
+    assert_equal  1234, parent.instance_variable_get(:@test_variable)
+    
+    state.update( parent, {} )
+
+    assert_equal  1235, parent.instance_variable_get(:@test_variable)
   end
 end
