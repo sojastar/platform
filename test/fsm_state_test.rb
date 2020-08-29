@@ -71,13 +71,13 @@ describe FSM::State do
     assert_equal  :yet_another_state, state.update( parent, { v: 1234, n: :go_to_yet_another_state } )
   end
 
-  it 'executes its action' do
+  it 'executes its defined update block' do
     state = FSM::State.new(:a_state) do
       define_setup do
         instance_variable_set :@test_variable, 1234
       end
 
-      define_action do |args|
+      define_update do |args|
         @test_variable += 1
       end
     end
