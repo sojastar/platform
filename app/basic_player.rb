@@ -34,18 +34,23 @@ class Player
 
     # ---=== FINITE STATE MACHINE : ===---
     fsm     = FSM::new_machine(nil) do
-                define_update do |args|
 
+                # 
+                define_update do |args|
+                  # --- Player input :
+                  if    args.inputs.keyboard.key_held.right then  @dx =  1
+                  elsif args.inputs.keyboard.key_held.left  then  @dx = -1
+                  else                                            @dx =  0
+                  end
+
+                  # --- Gravity :
+                  @dy  += GRAVITY
                 end
 
                 add_state(:idle) do
                   define_setup do
                     @animation.set_clip :idle
                     @dx = 0
-                  end
-
-                  define_update do |args|
-                    @dy  += GRAVITY
                   end
 
                   add_event(next_state: :walking_left) do |args|
@@ -67,11 +72,6 @@ class Player
                     @facing_right = false
                   end
 
-                  define_update do |args|
-                    @dx   = -1
-                    @dy  += GRAVITY
-                  end
-
                   add_event(next_state: :idle) do |args|
                     args.inputs.keyboard.key_held.left == false
                   end
@@ -89,11 +89,6 @@ class Player
                   define_setup do
                     @animation.set_clip :walk
                     @facing_right = true
-                  end
-
-                  define_update do |args|
-                    @dx   = 1
-                    @dy  += GRAVITY
                   end
 
                   add_event(next_state: :idle) do |args|
@@ -115,10 +110,6 @@ class Player
                     @dy   = 4
                   end
 
-                  define_update do |args|
-                    @dy  += GRAVITY
-                  end
-
                   add_event(next_state: :jumping_down) do |args|
                     @dy <= 0.0
                   end
@@ -127,10 +118,6 @@ class Player
                 add_state(:jumping_down) do
                   define_setup do
                     @animation.set_clip :jumping_down
-                  end
-
-                  define_update do |args|
-                    @dy  += GRAVITY
                   end
 
                   add_event(next_state: :idle) do |args|
