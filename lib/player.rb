@@ -1,5 +1,6 @@
 class Player < Actor
-  GRAVITY = -1
+  GRAVITY = -0.4
+
   # ---=== INITIALISATION : ===---
   def initialize(animation,fsm,start_x,start_y,health)
     super(animation,fsm,start_x,start_y)

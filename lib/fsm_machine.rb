@@ -2,17 +2,29 @@ module FSM
   class Machine
     attr_reader :parent, :states, :current_state
 
+    # ---=== INITIALIZATION : ===---
     def initialize(parent,&configuation_block)
       @parent         = parent
 
-      @initial_state  = nil
-
       @states         = {}
+      @initial_state  = nil
       @current_state  = nil
+
+      @update         = nil
 
       instance_eval &configuation_block
     end
 
+    def set_parent(new_parent)
+      @parent         = new_parent
+    end
+
+    def start
+      set_current_state @initial_state
+    end
+
+
+    # ---=== STATES : ===---
     def add_state(name,&configuration_block)
       @states[name]   = State.new name, &configuration_block
     end
@@ -32,16 +44,20 @@ module FSM
       end
     end
 
-    def set_parent(new_parent)
-      @parent         = new_parent
-    end
 
-    def start
-      set_current_state @initial_state
+    # ---=== UPDATE : ===---
+    def define_update(&update_block)
+      if update_block.nil? then
+        raise "ERROR: define_update called withouth a block for new machine"
+
+      else
+        @update = update_block
+
+      end
     end
 
     def update(args)
-      new_state       = @states[@current_state].update parent, args
+      new_state       = @states[@current_state].update @parent, args
 
       if new_state != @current_state then
         if @states.keys.include? new_state then
@@ -52,13 +68,19 @@ module FSM
 
         end
       end
+
+      @parent.instance_exec(args, &@update) unless @update.nil?
     end
   end
 
+
+  # ---=== FACTORY : ===---
   def self.new_machine(parent,&configuration_block)
     Machine.new(parent, &configuration_block)
   end
 
+
+  # ---=== SERIALIZATION : ===---
   def serialize
     { states: @states.keys }
   end

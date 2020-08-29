@@ -34,13 +34,17 @@ class Player
 
     # ---=== FINITE STATE MACHINE : ===---
     fsm     = FSM::new_machine(nil) do
+                define_update do |args|
+
+                end
+
                 add_state(:idle) do
                   define_setup do
                     @animation.set_clip :idle
                     @dx = 0
                   end
 
-                  define_action do |args|
+                  define_update do |args|
                     @dy  += GRAVITY
                   end
 
@@ -52,9 +56,9 @@ class Player
                     args.inputs.keyboard.key_held.right
                   end
 
-                  #add_event(next_state: :jumping_up) do |args|
-                  #  args.inputs.keyboard.key_down.space
-                  #end
+                  add_event(next_state: :jumping_up) do |args|
+                    args.inputs.keyboard.key_down.space
+                  end
                 end
 
                 add_state(:walking_left) do
@@ -63,7 +67,7 @@ class Player
                     @facing_right = false
                   end
 
-                  define_action do |args|
+                  define_update do |args|
                     @dx   = -1
                     @dy  += GRAVITY
                   end
@@ -76,9 +80,9 @@ class Player
                     args.inputs.keyboard.key_down.right
                   end
 
-                  #add_event(next_state: :jumping_up) do |args|
-                  #  args.inputs.keyboard.key_down.space
-                  #end
+                  add_event(next_state: :jumping_up) do |args|
+                    args.inputs.keyboard.key_down.space
+                  end
                 end
 
                 add_state(:walking_right) do
@@ -87,7 +91,7 @@ class Player
                     @facing_right = true
                   end
 
-                  define_action do |args|
+                  define_update do |args|
                     @dx   = 1
                     @dy  += GRAVITY
                   end
@@ -100,29 +104,39 @@ class Player
                     args.inputs.keyboard.key_down.left
                   end
 
-                  #add_event(next_state: :jumping_up) do |args|
-                  #  args.inputs.keyboard.key_down.space
-                  #end
+                  add_event(next_state: :jumping_up) do |args|
+                    args.inputs.keyboard.key_down.space
+                  end
                 end
 
-                #add_state(:jumping_up) do
-                #  define_setup do
-                #    @animation.set_clip :jumping_up
-                #  end
+                add_state(:jumping_up) do
+                  define_setup do
+                    @animation.set_clip :jumping_up
+                    @dy   = 4
+                  end
 
-                #  add_event(next_state: :jumping_down) do |args|
-                #    @dy == 0
-                #  end
-                #end
+                  define_update do |args|
+                    @dy  += GRAVITY
+                  end
 
-                #add_state(:jumping_down) do
-                #  define_setup do
-                #    @animation.set_clip :jumping_down
-                #  end
+                  add_event(next_state: :jumping_down) do |args|
+                    @dy <= 0.0
+                  end
+                end
 
-                #  add_event(next_state: :idle) do |args|
-                #  end
-                #end
+                add_state(:jumping_down) do
+                  define_setup do
+                    @animation.set_clip :jumping_down
+                  end
+
+                  define_update do |args|
+                    @dy  += GRAVITY
+                  end
+
+                  add_event(next_state: :idle) do |args|
+                    @dy == 0
+                  end
+                end
 
                 set_initial_state :idle
               end

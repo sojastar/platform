@@ -28,12 +28,12 @@ module FSM
       end
     end
 
-    def define_action(&block)
+    def define_update(&block)
       if block.nil? then
-        raise "ERROR: define_action called withouth a block for state #{@name}"
+        raise "ERROR: define_update called withouth a block for state #{@name}"
 
       else
-        @action = block
+        @update = block
 
       end
     end
@@ -54,7 +54,7 @@ module FSM
         return event[:next_state] if object.instance_exec(args, &event[:check]) 
       end
 
-      object.instance_exec(args, &@action) unless @action.nil?
+      object.instance_exec(args, &@update) unless @update.nil?
 
       return @name
     end
