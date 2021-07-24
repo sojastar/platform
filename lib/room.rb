@@ -1,7 +1,8 @@
 class Room
   TYPES = [ :empty,
             :block,
-            :platform ]
+            :platform,
+            :water ]
 
   attr_reader :tile_size,
               :start_x, :start_y,
