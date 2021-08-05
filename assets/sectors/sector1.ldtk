@@ -356,7 +356,116 @@
 					"seed": 8196984,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Animated_Tile",
+							"__grid": [3,6],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 18,
+							"px": [24,48],
+							"fieldInstances": [
+								{
+									"__identifier": "animation_tile1",
+									"__value": 41,
+									"__type": "Int",
+									"defUid": 19,
+									"realEditorValues": [{ "id": "V_Int", "params": [41] }]
+								},
+								{
+									"__identifier": "animation_tile2",
+									"__value": 43,
+									"__type": "Int",
+									"defUid": 20,
+									"realEditorValues": [{ "id": "V_Int", "params": [43] }]
+								},
+								{
+									"__identifier": "type",
+									"__value": "water",
+									"__type": "String",
+									"defUid": 21,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["water"]
+									}]
+								}
+							]
+						},
+						{
+							"__identifier": "Animated_Tile",
+							"__grid": [4,6],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 18,
+							"px": [32,48],
+							"fieldInstances": [
+								{
+									"__identifier": "animation_tile1",
+									"__value": 41,
+									"__type": "Int",
+									"defUid": 19,
+									"realEditorValues": [{ "id": "V_Int", "params": [41] }]
+								},
+								{
+									"__identifier": "animation_tile2",
+									"__value": 43,
+									"__type": "Int",
+									"defUid": 20,
+									"realEditorValues": [{ "id": "V_Int", "params": [43] }]
+								},
+								{
+									"__identifier": "type",
+									"__value": "water",
+									"__type": "String",
+									"defUid": 21,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["water"]
+									}]
+								}
+							]
+						},
+						{
+							"__identifier": "Animated_Tile",
+							"__grid": [6,6],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 18,
+							"px": [48,48],
+							"fieldInstances": [
+								{
+									"__identifier": "animation_tile1",
+									"__value": 41,
+									"__type": "Int",
+									"defUid": 19,
+									"realEditorValues": [{ "id": "V_Int", "params": [41] }]
+								},
+								{
+									"__identifier": "animation_tile2",
+									"__value": 43,
+									"__type": "Int",
+									"defUid": 20,
+									"realEditorValues": [{ "id": "V_Int", "params": [43] }]
+								},
+								{
+									"__identifier": "type",
+									"__value": "water",
+									"__type": "String",
+									"defUid": 21,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["water"]
+									}]
+								}
+							]
+						}
+					]
 				},
 				{
 					"__identifier": "Exits",
@@ -381,7 +490,100 @@
 					"seed": 1714693,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Exit",
+							"__grid": [15,4],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 8,
+							"height": 24,
+							"defUid": 6,
+							"px": [120,40],
+							"fieldInstances": [
+								{
+									"__identifier": "room",
+									"__value": "Room1",
+									"__type": "String",
+									"defUid": 10,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Room1"]
+									}]
+								},
+								{
+									"__identifier": "orientation",
+									"__value": "vertical",
+									"__type": "String",
+									"defUid": 14,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["vertical"]
+									}]
+								},
+								{
+									"__identifier": "x",
+									"__value": 0,
+									"__type": "Int",
+									"defUid": 15,
+									"realEditorValues": [{ "id": "V_Int", "params": [0] }]
+								},
+								{
+									"__identifier": "y",
+									"__value": 4,
+									"__type": "Int",
+									"defUid": 16,
+									"realEditorValues": [{ "id": "V_Int", "params": [4] }]
+								}
+							]
+						},
+						{
+							"__identifier": "Exit",
+							"__grid": [2,0],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 32,
+							"height": 8,
+							"defUid": 6,
+							"px": [16,8],
+							"fieldInstances": [
+								{
+									"__identifier": "room",
+									"__value": "Room2",
+									"__type": "String",
+									"defUid": 10,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Room2"]
+									}]
+								},
+								{
+									"__identifier": "orientation",
+									"__value": "horizontal",
+									"__type": "String",
+									"defUid": 14,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["horizontal"]
+									}]
+								},
+								{
+									"__identifier": "x",
+									"__value": 3,
+									"__type": "Int",
+									"defUid": 15,
+									"realEditorValues": [{ "id": "V_Int", "params": [3] }]
+								},
+								{
+									"__identifier": "y",
+									"__value": 15,
+									"__type": "Int",
+									"defUid": 16,
+									"realEditorValues": [{ "id": "V_Int", "params": [15] }]
+								}
+							]
+						}
+					]
 				},
 				{
 					"__identifier": "Tiles",
@@ -609,103 +811,11 @@
 					"entityInstances": [
 						{
 							"__identifier": "Exit",
-							"__grid": [0,2],
-							"__pivot": [0,1],
-							"__tile": null,
-							"width": 8,
-							"height": 8,
-							"defUid": 6,
-							"px": [0,24],
-							"fieldInstances": [
-								{
-									"__identifier": "room",
-									"__value": "Room0",
-									"__type": "String",
-									"defUid": 10,
-									"realEditorValues": [{
-										"id": "V_String",
-										"params": ["Room0"]
-									}]
-								},
-								{
-									"__identifier": "orientation",
-									"__value": "vertical",
-									"__type": "String",
-									"defUid": 14,
-									"realEditorValues": [{
-										"id": "V_String",
-										"params": ["vertical"]
-									}]
-								},
-								{
-									"__identifier": "x",
-									"__value": 15,
-									"__type": "Int",
-									"defUid": 15,
-									"realEditorValues": [{ "id": "V_Int", "params": [15] }]
-								},
-								{
-									"__identifier": "y",
-									"__value": 4,
-									"__type": "Int",
-									"defUid": 16,
-									"realEditorValues": [{ "id": "V_Int", "params": [4] }]
-								}
-							]
-						},
-						{
-							"__identifier": "Exit",
-							"__grid": [0,3],
-							"__pivot": [0,1],
-							"__tile": null,
-							"width": 8,
-							"height": 8,
-							"defUid": 6,
-							"px": [0,32],
-							"fieldInstances": [
-								{
-									"__identifier": "room",
-									"__value": "Room0",
-									"__type": "String",
-									"defUid": 10,
-									"realEditorValues": [{
-										"id": "V_String",
-										"params": ["Room0"]
-									}]
-								},
-								{
-									"__identifier": "orientation",
-									"__value": "vertical",
-									"__type": "String",
-									"defUid": 14,
-									"realEditorValues": [{
-										"id": "V_String",
-										"params": ["vertical"]
-									}]
-								},
-								{
-									"__identifier": "x",
-									"__value": 15,
-									"__type": "Int",
-									"defUid": 15,
-									"realEditorValues": [{ "id": "V_Int", "params": [15] }]
-								},
-								{
-									"__identifier": "y",
-									"__value": 4,
-									"__type": "Int",
-									"defUid": 16,
-									"realEditorValues": [{ "id": "V_Int", "params": [4] }]
-								}
-							]
-						},
-						{
-							"__identifier": "Exit",
 							"__grid": [0,4],
 							"__pivot": [0,1],
 							"__tile": null,
 							"width": 8,
-							"height": 8,
+							"height": 24,
 							"defUid": 6,
 							"px": [0,40],
 							"fieldInstances": [
@@ -742,6 +852,52 @@
 									"__type": "Int",
 									"defUid": 16,
 									"realEditorValues": [{ "id": "V_Int", "params": [4] }]
+								}
+							]
+						},
+						{
+							"__identifier": "Exit",
+							"__grid": [2,0],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 40,
+							"height": 8,
+							"defUid": 6,
+							"px": [16,8],
+							"fieldInstances": [
+								{
+									"__identifier": "room",
+									"__value": "Room3",
+									"__type": "String",
+									"defUid": 10,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Room3"]
+									}]
+								},
+								{
+									"__identifier": "orientation",
+									"__value": "horizontal",
+									"__type": "String",
+									"defUid": 14,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["horizontal"]
+									}]
+								},
+								{
+									"__identifier": "x",
+									"__value": 6,
+									"__type": "Int",
+									"defUid": 15,
+									"realEditorValues": [{ "id": "V_Int", "params": [6] }]
+								},
+								{
+									"__identifier": "y",
+									"__value": 14,
+									"__type": "Int",
+									"defUid": 16,
+									"realEditorValues": [{ "id": "V_Int", "params": [14] }]
 								}
 							]
 						}
@@ -906,7 +1062,100 @@
 					"seed": 2063168,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Exit",
+							"__grid": [15,3],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 8,
+							"height": 16,
+							"defUid": 6,
+							"px": [120,32],
+							"fieldInstances": [
+								{
+									"__identifier": "room",
+									"__value": "Room3",
+									"__type": "String",
+									"defUid": 10,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Room3"]
+									}]
+								},
+								{
+									"__identifier": "orientation",
+									"__value": "vertical",
+									"__type": "String",
+									"defUid": 14,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["vertical"]
+									}]
+								},
+								{
+									"__identifier": "x",
+									"__value": 0,
+									"__type": "Int",
+									"defUid": 15,
+									"realEditorValues": [{ "id": "V_Int", "params": [0] }]
+								},
+								{
+									"__identifier": "y",
+									"__value": 3,
+									"__type": "Int",
+									"defUid": 16,
+									"realEditorValues": [{ "id": "V_Int", "params": [3] }]
+								}
+							]
+						},
+						{
+							"__identifier": "Exit",
+							"__grid": [2,15],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 32,
+							"height": 8,
+							"defUid": 6,
+							"px": [16,128],
+							"fieldInstances": [
+								{
+									"__identifier": "room",
+									"__value": "Room0",
+									"__type": "String",
+									"defUid": 10,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Room0"]
+									}]
+								},
+								{
+									"__identifier": "orientation",
+									"__value": "horizontal",
+									"__type": "String",
+									"defUid": 14,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["horizontal"]
+									}]
+								},
+								{
+									"__identifier": "x",
+									"__value": 3,
+									"__type": "Int",
+									"defUid": 15,
+									"realEditorValues": [{ "id": "V_Int", "params": [3] }]
+								},
+								{
+									"__identifier": "y",
+									"__value": 0,
+									"__type": "Int",
+									"defUid": 16,
+									"realEditorValues": [{ "id": "V_Int", "params": [0] }]
+								}
+							]
+						}
+					]
 				},
 				{
 					"__identifier": "Tiles",
@@ -1259,7 +1508,100 @@
 					"seed": 9222750,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Exit",
+							"__grid": [2,15],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 40,
+							"height": 8,
+							"defUid": 6,
+							"px": [16,128],
+							"fieldInstances": [
+								{
+									"__identifier": "room",
+									"__value": "Room1",
+									"__type": "String",
+									"defUid": 10,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Room1"]
+									}]
+								},
+								{
+									"__identifier": "orientation",
+									"__value": "horizontal",
+									"__type": "String",
+									"defUid": 14,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["horizontal"]
+									}]
+								},
+								{
+									"__identifier": "x",
+									"__value": 4,
+									"__type": "Int",
+									"defUid": 15,
+									"realEditorValues": [{ "id": "V_Int", "params": [4] }]
+								},
+								{
+									"__identifier": "y",
+									"__value": 0,
+									"__type": "Int",
+									"defUid": 16,
+									"realEditorValues": [{ "id": "V_Int", "params": [0] }]
+								}
+							]
+						},
+						{
+							"__identifier": "Exit",
+							"__grid": [0,3],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 8,
+							"height": 16,
+							"defUid": 6,
+							"px": [0,32],
+							"fieldInstances": [
+								{
+									"__identifier": "room",
+									"__value": "Room2",
+									"__type": "String",
+									"defUid": 10,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["Room2"]
+									}]
+								},
+								{
+									"__identifier": "orientation",
+									"__value": "vertical",
+									"__type": "String",
+									"defUid": 14,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["vertical"]
+									}]
+								},
+								{
+									"__identifier": "x",
+									"__value": 15,
+									"__type": "Int",
+									"defUid": 15,
+									"realEditorValues": [{ "id": "V_Int", "params": [15] }]
+								},
+								{
+									"__identifier": "y",
+									"__value": 3,
+									"__type": "Int",
+									"defUid": 16,
+									"realEditorValues": [{ "id": "V_Int", "params": [3] }]
+								}
+							]
+						}
+					]
 				},
 				{
 					"__identifier": "Tiles",
