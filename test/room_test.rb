@@ -1,9 +1,10 @@
 require           'minitest/autorun'
 require_relative  'test_helper.rb'
 
-describe Room do
-  it 'is created with a description block' do
-    room  = Room::create_room do
+describe Platformer::Room do
+  it 'is created from json data' do
+    json_data = $gtk.parse_json_file filename
+    r         = Platformer::Room.new json_data['levels'].first
               set_tiles           '../sprites', 'tiles.json'     # Be carefull ! The json file and ...
                                                                   # ... the png file must be in the ...
                                                                   # ... same directory !!!
