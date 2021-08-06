@@ -286,7 +286,7 @@
 			"__cHei": 8,
 			"identifier": "Sector1_tileset",
 			"uid": 1,
-			"relPath": "../sprites/sector1_tileset.png",
+			"relPath": "../assets/sprites/sector1_tileset.png",
 			"pxWid": 64,
 			"pxHei": 64,
 			"tileGridSize": 8,

@@ -1,56 +1,44 @@
-class Sector
-  attr_reader :rooms
+module Platformer
+  class Sector
+    attr_reader :tileset,
+                :rooms
 
-  # ---=== INITIALISATION : ===---
-  def initialize
-    @rooms  = {}
-  end
+    # ---=== INITIALISATION : ===---
+    def initialize(filename)
+      json_data = $gtk.parse_json_file filename
 
-  def self.create_sector(&block)
-    if block.nil? then
-      raise "ERROR: trying to create new sector but no block given."
+      # We assume there is only one tileset per sector.
+      @tileset      = Platformer::TileSet.new json_data['defs']['tilesets'].first
 
-    else
-      new_sector = Sector.new
-      new_sector.instance_eval &block
-
-      raise "ERROR: newly created sector doesn't have any rooms. Did you forget to add some?"         if      new_sector.rooms.empty?
-      raise "ERROR: newly created sector doesn't have a current room set. Did you forget to set one?" unless  new_sector.instance_variable_defined?(:@current_room)
-
-      new_sector
+      @current_room = 0
+      @rooms        = json_data['levels'].map do |level|
+                        Platformer::Room.new level
+                      end
     end
+
+    def current_room
+      @rooms[@current_room]
+    end
+
+
+    # ---=== UPDATE : ===---
+    def update(args,player)
+      @rooms[@current_room].update(args,player)
+    end
+
+
+    # ---=== RENDER : ===---
+    def render(args)
+      @rooms[@current_room].render(args)
+    end
+
+
+    # ---=== SERIALIZATION : ===---
+    def serialize
+      { room_count: @rooms.length, rooms: @rooms.keys }
+    end
+
+    def inspect() serialize.to_s  end
+    def to_s()    serialize.to_s  end 
   end
-
-  def add_room(name,&room_block)
-    @rooms[name]  = Room::create_room &room_block
-  end
-
-  def set_current_room(room)
-    @current_room = room
-  end
-
-  def current_room
-    @rooms[@current_room]
-  end
-
-
-  # ---=== UPDATE : ===---
-  def update(args,player)
-    @rooms[@current_room].update(args,player)
-  end
-
-
-  # ---=== RENDER : ===---
-  def render(args)
-    @rooms[@current_room].render(args)
-  end
-
-
-  # ---=== SERIALIZATION : ===---
-  def serialize
-    { room_count: @rooms.length, rooms: @rooms.keys }
-  end
-
-  def inspect() serialize.to_s  end
-  def to_s()    serialize.to_s  end 
 end

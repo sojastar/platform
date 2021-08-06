@@ -1,17 +1,16 @@
 class Room
-  TYPES = [ :empty,
-            :block,
-            :platform,
-            :water ]
+  #TYPES = [ :empty,
+  #          :block,
+  #          :platform,
+  #          :water ]
 
   attr_reader :tile_size,
               :start_x, :start_y,
               :exits
   
   # ---=== INITIALISATION : ===---
-  def initialize
-    @start_x, @start_y  = -1, -1
-    @exits              = []
+  def initialize(json_data)
+
   end
 
   def set_tiles(tiles_path,tiles_json_file) # Be carefull ! The json file and ...
