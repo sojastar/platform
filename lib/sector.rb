@@ -1,7 +1,9 @@
 module Platformer
   class Sector
-    attr_reader :tileset,
-                :rooms
+    attr_reader   :tileset,
+                  :rooms
+
+    attr_accessor :player
 
     # ---=== INITIALISATION : ===---
     def initialize(filename)
@@ -16,6 +18,8 @@ module Platformer
                           Platformer::Room.new(self, level) ]
                       end
                       .to_h
+
+      @player       = nil
     end
 
     def current_room
@@ -24,14 +28,14 @@ module Platformer
 
 
     # ---=== UPDATE : ===---
-    def update(args,player)
-      @rooms[@current_room].update(args,player)
+    def update(args)
+      @rooms[@current_room].update(args)
     end
 
 
     # ---=== RENDER : ===---
-    def render(args)
-      @rooms[@current_room].render(args)
+    def render(args,scale)
+      @rooms[@current_room].render(args, scale)
     end
 
 

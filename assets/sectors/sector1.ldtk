@@ -5,10 +5,10 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.9.3",
+		"appVersion": "0.9.1",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.9.3",
+	"jsonVersion": "0.9.1",
 	"nextUid": 24,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
@@ -23,7 +23,7 @@
 	"minifyJson": false,
 	"externalLevels": false,
 	"exportTiled": false,
-	"imageExportMode": "None",
+	"exportPng": false,
 	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
@@ -130,7 +130,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLangageMode": null
 				},
 				{
 					"identifier": "orientation",
@@ -150,7 +150,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLangageMode": null
 				},
 				{
 					"identifier": "x",
@@ -170,7 +170,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLangageMode": null
 				},
 				{
 					"identifier": "y",
@@ -190,7 +190,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLangageMode": null
 				}
 			]
 		},
@@ -236,7 +236,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLangageMode": null
 				},
 				{
 					"identifier": "animation_tile1",
@@ -256,7 +256,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLangageMode": null
 				},
 				{
 					"identifier": "animation_tile2",
@@ -276,7 +276,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLangageMode": null
 				}
 			]
 		}
@@ -286,7 +286,7 @@
 			"__cHei": 8,
 			"identifier": "Sector1_tileset",
 			"uid": 1,
-			"relPath": "../assets/sprites/sector1_tileset.png",
+			"relPath": "../sprites/sector1_tileset.png",
 			"pxWid": 64,
 			"pxHei": 64,
 			"tileGridSize": 8,

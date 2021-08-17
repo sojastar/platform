@@ -118,10 +118,13 @@ module Platformer
 
 
     # ---=== RENDER : ===---
-    def render(args,x,y)
+    def render(args,scale)
+      offset_x  = ( args.grid.right - @pixel_width  * scale ).div(2)
+      offset_y  = ( args.grid.top   - @pixel_height * scale ).div(2)
+
       # Static tiles :
-      args.outputs.sprites << { x:    x,
-                                y:    y,
+      args.outputs.sprites << { x:    offset_x,
+                                y:    offset_y,
                                 w:    @pixel_width,
                                 h:    @pixel_height,
                                 file: @symbol,
@@ -132,7 +135,14 @@ module Platformer
 
       # Animated tiles :
       arg.outputs.sprites <<  @animated_tiles.map do |tile|
-                                tile[:steps][tile[:current_step]]
+                                raw_tile      = tile[:steps][tile[:current_step]]
+
+                                raw_tile[:x]  = raw_tile[:x] * scale + offset_x
+                                raw_tile[:y]  = raw_tile[:y] * scale + offset_y
+                                raw_tile[:w]  = raw_tile[:w] * scale
+                                rah_tile[:h]  = rah_tile[:h] * scale
+
+                                raw_tile
                               end
     end
 
