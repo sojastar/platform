@@ -31,5 +31,10 @@ describe Platformer::TileSet do
 
     assert        t.types.has_key? :water
     assert_equal  [41, 43, 49, 51], t.types[:water]
+
+    assert_equal  [ 0, 56], t.tile_coordinates(0)
+    assert_equal  [56, 56], t.tile_coordinates(7)
+    assert_equal  [ 0, 48], t.tile_coordinates(8)
+    assert_equal  [56,  0], t.tile_coordinates(63)
   end
 end

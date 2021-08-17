@@ -59,3 +59,11 @@ class Outputs
 end
 
 $gtk  = GTK.new
+
+class DummySector
+  attr_reader :tileset
+
+  def initialize(json_data)
+    @tileset = Platformer::TileSet.new json_data['defs']['tilesets'].first
+  end
+end

@@ -18,5 +18,10 @@ module Platformer
                     end
                     .to_h
     end
+
+    def tile_coordinates(index)
+      [ ( index % @width ) * @tile_size,
+        ( @height - index.div(@width) - 1 ) * @tile_size ]
+    end
   end
 end

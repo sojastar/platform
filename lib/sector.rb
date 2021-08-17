@@ -10,10 +10,12 @@ module Platformer
       # We assume there is only one tileset per sector.
       @tileset      = Platformer::TileSet.new json_data['defs']['tilesets'].first
 
-      @current_room = 0
+      @current_room = :room0  # !!! the first room is always Room0 !!!
       @rooms        = json_data['levels'].map do |level|
-                        Platformer::Room.new level
+                        [ level['identifier'].downcase.to_sym,
+                          Platformer::Room.new(self, level) ]
                       end
+                      .to_h
     end
 
     def current_room
