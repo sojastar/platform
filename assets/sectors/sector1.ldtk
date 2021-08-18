@@ -5,11 +5,11 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.9.1",
+		"appVersion": "0.9.3",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.9.1",
-	"nextUid": 24,
+	"jsonVersion": "0.9.3",
+	"nextUid": 26,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -23,7 +23,7 @@
 	"minifyJson": false,
 	"externalLevels": false,
 	"exportTiled": false,
-	"exportPng": false,
+	"imageExportMode": "None",
 	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
@@ -130,7 +130,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "orientation",
@@ -150,7 +150,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "x",
@@ -170,7 +170,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "y",
@@ -190,7 +190,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				}
 			]
 		},
@@ -219,29 +219,9 @@
 			"pivotY": 0,
 			"fieldDefs": [
 				{
-					"identifier": "type",
-					"__type": "String",
-					"uid": 21,
-					"type": "F_String",
-					"isArray": false,
-					"canBeNull": true,
-					"arrayMinLength": null,
-					"arrayMaxLength": null,
-					"editorDisplayMode": "Hidden",
-					"editorDisplayPos": "Above",
-					"editorAlwaysShow": false,
-					"editorCutLongValues": true,
-					"min": null,
-					"max": null,
-					"regex": null,
-					"acceptFileTypes": null,
-					"defaultOverride": null,
-					"textLangageMode": null
-				},
-				{
-					"identifier": "animation_tile1",
+					"identifier": "speed",
 					"__type": "Int",
-					"uid": 19,
+					"uid": 24,
 					"type": "F_Int",
 					"isArray": false,
 					"canBeNull": false,
@@ -255,15 +235,15 @@
 					"max": null,
 					"regex": null,
 					"acceptFileTypes": null,
-					"defaultOverride": null,
-					"textLangageMode": null
+					"defaultOverride": { "id": "V_Int", "params": [10] },
+					"textLanguageMode": null
 				},
 				{
-					"identifier": "animation_tile2",
-					"__type": "Int",
-					"uid": 20,
+					"identifier": "tiles",
+					"__type": "Array<Int>",
+					"uid": 25,
 					"type": "F_Int",
-					"isArray": false,
+					"isArray": true,
 					"canBeNull": false,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
@@ -276,7 +256,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				}
 			]
 		}
@@ -367,29 +347,13 @@
 							"defUid": 18,
 							"px": [24,48],
 							"fieldInstances": [
+								{ "__identifier": "speed", "__value": 10, "__type": "Int", "defUid": 24, "realEditorValues": [] },
 								{
-									"__identifier": "animation_tile1",
-									"__value": 41,
-									"__type": "Int",
-									"defUid": 19,
-									"realEditorValues": [{ "id": "V_Int", "params": [41] }]
-								},
-								{
-									"__identifier": "animation_tile2",
-									"__value": 43,
-									"__type": "Int",
-									"defUid": 20,
-									"realEditorValues": [{ "id": "V_Int", "params": [43] }]
-								},
-								{
-									"__identifier": "type",
-									"__value": "water",
-									"__type": "String",
-									"defUid": 21,
-									"realEditorValues": [{
-										"id": "V_String",
-										"params": ["water"]
-									}]
+									"__identifier": "tiles",
+									"__value": [41,43],
+									"__type": "Array<Int>",
+									"defUid": 25,
+									"realEditorValues": [ { "id": "V_Int", "params": [41] }, { "id": "V_Int", "params": [43] } ]
 								}
 							]
 						},
@@ -403,29 +367,13 @@
 							"defUid": 18,
 							"px": [32,48],
 							"fieldInstances": [
+								{ "__identifier": "speed", "__value": 10, "__type": "Int", "defUid": 24, "realEditorValues": [] },
 								{
-									"__identifier": "animation_tile1",
-									"__value": 41,
-									"__type": "Int",
-									"defUid": 19,
-									"realEditorValues": [{ "id": "V_Int", "params": [41] }]
-								},
-								{
-									"__identifier": "animation_tile2",
-									"__value": 43,
-									"__type": "Int",
-									"defUid": 20,
-									"realEditorValues": [{ "id": "V_Int", "params": [43] }]
-								},
-								{
-									"__identifier": "type",
-									"__value": "water",
-									"__type": "String",
-									"defUid": 21,
-									"realEditorValues": [{
-										"id": "V_String",
-										"params": ["water"]
-									}]
+									"__identifier": "tiles",
+									"__value": [41,43],
+									"__type": "Array<Int>",
+									"defUid": 25,
+									"realEditorValues": [ { "id": "V_Int", "params": [41] }, { "id": "V_Int", "params": [43] } ]
 								}
 							]
 						},
@@ -439,29 +387,13 @@
 							"defUid": 18,
 							"px": [48,48],
 							"fieldInstances": [
+								{ "__identifier": "speed", "__value": 10, "__type": "Int", "defUid": 24, "realEditorValues": [] },
 								{
-									"__identifier": "animation_tile1",
-									"__value": 41,
-									"__type": "Int",
-									"defUid": 19,
-									"realEditorValues": [{ "id": "V_Int", "params": [41] }]
-								},
-								{
-									"__identifier": "animation_tile2",
-									"__value": 43,
-									"__type": "Int",
-									"defUid": 20,
-									"realEditorValues": [{ "id": "V_Int", "params": [43] }]
-								},
-								{
-									"__identifier": "type",
-									"__value": "water",
-									"__type": "String",
-									"defUid": 21,
-									"realEditorValues": [{
-										"id": "V_String",
-										"params": ["water"]
-									}]
+									"__identifier": "tiles",
+									"__value": [41,43],
+									"__type": "Array<Int>",
+									"defUid": 25,
+									"realEditorValues": [ { "id": "V_Int", "params": [41] }, { "id": "V_Int", "params": [43] } ]
 								}
 							]
 						}
