@@ -51,7 +51,6 @@ describe Platformer::Room do
     assert_equal       2, r.animated_tiles[0][:steps].length
     assert_equal       0, r.animated_tiles[0][:current_step]
     assert_equal      10, r.animated_tiles[0][:speed]
-    assert_equal  :water, r.animated_tiles[0][:type]
   end
 
   #it 'will create its exit collision rectangles' do

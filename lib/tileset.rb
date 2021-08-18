@@ -6,7 +6,7 @@ module Platformer
                 :types
 
     def initialize(json_data)
-      @file       = json_data['relPath'][3..-1]
+      @file       = 'assets/' + json_data['relPath'][3..-1]
 
       @tile_size  = json_data['tileGridSize']
 

@@ -28,7 +28,7 @@ module Platformer
 
 
     # ---=== UPDATE : ===---
-    def update(args)
+    def update(args,player)
       @rooms[@current_room].update(args)
     end
 

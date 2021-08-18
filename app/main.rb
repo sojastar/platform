@@ -16,6 +16,7 @@ require 'app/basic_player.rb'
 
 
 # ---=== CONSTANTS : ===---
+SCALE = 4
 
 
 
@@ -24,6 +25,8 @@ require 'app/basic_player.rb'
 # ---=== SETUP : ===---
 def setup(args)
   args.state.sector     = Platformer::Sector.new 'assets/sectors/sector1.ldtk'
+
+  puts args.state.sector.tileset.file
 
   #args.state.player     = Player::spawn_basic_player_at args.state.sector.current_room.start_x,
   #                                                      args.state.sector.current_room.start_y,
@@ -49,7 +52,9 @@ def tick(args)
 
 
   # --- 3. Render :
-  args.state.sector.render args, scale
+  args.outputs.background_color = [64, 0, 128]
+
+  args.state.sector.render args, SCALE
 end
 
 

@@ -26,33 +26,37 @@ module Platformer
       @exits          = []
       @animated_tiles = []
 
+      puts @symbol
       json_data['layerInstances'].each do |layer|
         case layer['__identifier']
         when 'Animated_Tiles'
           layer['entityInstances'].map do |animated_tile|
             animation = { steps:        [],
                           current_step: 0,
-                          speed:        10,
-                          type:         '' }
+                          speed:        10 }
 
             animated_tile['fieldInstances'].each do |field|
               case field['__identifier']
-              when /^animation_tile/
-                step_tile = field['__value']
-                source    = @sector.tileset.tile_coordinates(step_tile)
+              when 'speed'
+                animation['speed'] = field['__value']
 
-                animation[:steps] <<  { x:        animated_tile['px'][0],
-                                        y:        animated_tile['px'][1],
+              when 'tiles'
+                animation[:steps] = field['__value'].map do |index|
+                                      source    = @sector.tileset.tile_coordinates(index)
+
+                                      { x:        animated_tile['px'][0],
+                                        y:        @pixel_height - animated_tile['px'][1] - @sector.tileset.tile_size,
                                         w:        animated_tile['width'],
                                         h:        animated_tile['height'],
-                                        file:     @sector.tileset.file,
+                                        path:     @sector.tileset.file,
                                         source_x: source[0],
                                         source_y: source[1],
                                         source_w: @sector.tileset.tile_size,
                                         source_h: @sector.tileset.tile_size }
+                                    end
 
-              when /^type/
-                animation[:type] = field['__value'].downcase.to_sym
+              when 'random_start'
+                animation[:current_step] = rand animation[:steps].length
 
               end
             end
@@ -83,16 +87,19 @@ module Platformer
             @tiles[index.div @tile_width][index % @tile_width] = tile['t']
 
             # Filling the render target :
+            tile_coordinates = @sector.tileset.tile_coordinates(tile['t'])
+
             $gtk.args.render_target(@symbol).sprites << { x:        tile['px'][0],
-                                                          y:        @pixel_height - ( tile['px'][1] + 1 ) * @sector.tileset.tile_size,
+                                                          y:        @pixel_height - tile['px'][1] - @sector.tileset.tile_size,
                                                           w:        @sector.tileset.tile_size,
                                                           h:        @sector.tileset.tile_size,
-                                                          file:     @sector.tileset.file,
-                                                          source_x: tile['src'][0],
-                                                          source_y: tile['src'][1],
+                                                          path:     @sector.tileset.file,
+                                                          source_x: tile_coordinates[0],
+                                                          source_y: tile_coordinates[1],
                                                           source_w: @sector.tileset.tile_size,
                                                           source_h: @sector.tileset.tile_size }
           end
+
         end
       end
     end
@@ -125,24 +132,27 @@ module Platformer
       # Static tiles :
       args.outputs.sprites << { x:    offset_x,
                                 y:    offset_y,
-                                w:    @pixel_width,
-                                h:    @pixel_height,
-                                file: @symbol,
+                                w:    @pixel_width * scale,
+                                h:    @pixel_height * scale,
+                                path: @symbol,
                                 source_x: 0,
                                 source_y: 0,
                                 source_w: @pixel_width,
                                 source_h: @pixel_height }
 
       # Animated tiles :
-      arg.outputs.sprites <<  @animated_tiles.map do |tile|
+      args.outputs.sprites << @animated_tiles.map do |tile|
                                 raw_tile      = tile[:steps][tile[:current_step]]
 
-                                raw_tile[:x]  = raw_tile[:x] * scale + offset_x
-                                raw_tile[:y]  = raw_tile[:y] * scale + offset_y
-                                raw_tile[:w]  = raw_tile[:w] * scale
-                                rah_tile[:h]  = rah_tile[:h] * scale
-
-                                raw_tile
+                                { x:        raw_tile[:x] * scale + offset_x,
+                                  y:        raw_tile[:y] * scale + offset_y,
+                                  w:        raw_tile[:w] * scale,
+                                  h:        raw_tile[:h] * scale,
+                                  path:     raw_tile[:path],
+                                  source_x: raw_tile[:source_x],
+                                  source_y: raw_tile[:source_y],
+                                  source_w: raw_tile[:source_w],
+                                  source_h: raw_tile[:source_h] }
                               end
     end
 
