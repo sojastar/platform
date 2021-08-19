@@ -26,11 +26,9 @@ SCALE = 6
 def setup(args)
   args.state.sector     = Platformer::Sector.new 'assets/sectors/sector1.ldtk'
 
-  puts args.state.sector.tileset.file
-
-  #args.state.player     = Player::spawn_basic_player_at args.state.sector.current_room.start_x,
-  #                                                      args.state.sector.current_room.start_y,
-  #                                                      3
+  args.state.player     = Player::spawn_basic_player_at args.state.sector.current_room.start_x,
+                                                        args.state.sector.current_room.start_y,
+                                                        3
 
   args.state.setup_done = true
 end
@@ -47,14 +45,16 @@ def tick(args)
 
 
   # --- 2. Main Loop :
-  #args.state.player.update(args,args.state.sector)
-  args.state.sector.update(args,args.state.player)
+  args.state.sector.update args, args.state.player
 
 
   # --- 3. Render :
   args.outputs.background_color = [64, 0, 128]
 
-  args.state.sector.render args, SCALE, true
+  args.state.sector.render  args,
+                            args.state.player,
+                            SCALE,
+                            true
 end
 
 

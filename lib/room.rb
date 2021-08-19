@@ -5,7 +5,7 @@ module Platformer
                 :tile_width, :tile_height,
                 :tiles,
                 :pixel_width, :pixel_height,
-                #:start_x, :start_y,
+                :start_x, :start_y,
                 :exits,
                 :animated_tiles
 
@@ -26,9 +26,24 @@ module Platformer
       @exits          = []
       @animated_tiles = []
 
-      puts @symbol
+      @start_x        = 0
+      @start_y        = 0
+
       json_data['layerInstances'].each do |layer|
         case layer['__identifier']
+        when 'Spawn'
+          layer['entityInstances'].each do |spawn_point|
+            case spawn_point['__identifier']
+            when 'PlayerSpawn'
+              @start_x  = spawn_point['px'][0]
+              @start_y  = @pixel_height - spawn_point['px'][1]
+
+            when 'ActorSpawn'
+              puts 'Spawning actors one day'
+
+            end
+          end
+
         when 'Animated_Tiles'
           layer['entityInstances'].map do |animated_tile|
             animation = { steps:        [],
@@ -68,7 +83,6 @@ module Platformer
           layer['entityInstances'].each do |exit_data|
             fields_data = exit_data['fieldInstances']
             @exits << { rect:             [ exit_data['px'][0],
-                                            #@pixel_height - exit_data['px'][1] - @sector.tileset.tile_size,
                                             @pixel_height - exit_data['px'][1],
                                             exit_data['width'],
                                             exit_data['height'] ],
@@ -83,6 +97,7 @@ module Platformer
           $gtk.args.render_target(@symbol).height = json_data['pxHei']
 
           layer['gridTiles'].each.with_index do |tile,index|
+
             # Filling the collisions tile array :
             @tiles << [] if index % @tile_width == 0
             @tiles[index.div @tile_width][index % @tile_width] = tile['t']
@@ -103,6 +118,8 @@ module Platformer
 
         end
       end
+
+      @tiles.reverse!
     end
 
     def extract_field_value(json_data,identifier)
@@ -115,8 +132,20 @@ module Platformer
     end
 
 
+    # ---=== ACCESSORS : ===---
+    def tile_type_at(x,y)
+      @sector.tileset.tiles[@tiles[y][x]]
+    end
+
+    def coords_inside?(x,y)
+      x >= 0 && x < @tile_width && y >= 0 && y < @tile_height
+    end
+
+
     # ---=== UPDATE : ===---
-    def update(args)
+    def update(args,player)
+      player.update args, self
+
       @animated_tiles.each do |tile|
         if args.tick_count % tile[:speed] == 0 then
           tile[:current_step] = ( tile[:current_step] + 1 ) % tile[:steps].length
@@ -126,7 +155,7 @@ module Platformer
 
 
     # ---=== RENDER : ===---
-    def render(args,scale,debug=false)
+    def render(args,player,scale,debug=false)
       offset_x  = ( args.grid.right - @pixel_width  * scale ).div(2)
       offset_y  = ( args.grid.top   - @pixel_height * scale ).div(2)
 
@@ -145,6 +174,9 @@ module Platformer
       args.render_target(:final).sprites << @animated_tiles.map do |tile|
                                               tile[:steps][tile[:current_step]]
                                             end
+
+      # Player :
+      args.render_target(:final).sprites << player.render(args) 
 
       # DEBUG - Exits :
       if debug then

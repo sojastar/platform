@@ -29,13 +29,13 @@ module Platformer
 
     # ---=== UPDATE : ===---
     def update(args,player)
-      @rooms[@current_room].update(args)
+      @rooms[@current_room].update(args,player)
     end
 
 
     # ---=== RENDER : ===---
-    def render(args,scale,debug=false)
-      @rooms[@current_room].render(args, scale, debug)
+    def render(args,player,scale,debug=false)
+      @rooms[@current_room].render(args, player, scale, debug)
     end
 
 

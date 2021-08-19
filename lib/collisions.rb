@@ -3,9 +3,11 @@ module Collisions
     # First round of collision testing that will teel us ...
     # ... the distance of each collision :
     collisions  = []
+    ray_end     = [ position[0] + velocity[0],
+                    position[1] + velocity[1] ]
     rects.each do |rect|
-      ray_end         = [ position[0] + velocity[0],
-                          position[1] + velocity[1] ]
+      #ray_end         = [ position[0] + velocity[0],
+      #                    position[1] + velocity[1] ]
       collision_zone  = [ rect[0] - size[0] / 2,
                           rect[1] - size[1] / 2, 
                           rect[2] + size[0],

@@ -3,7 +3,8 @@ module Platformer
     attr_reader :file,
                 :tile_size,
                 :width, :height,
-                :types
+                :types,
+                :tiles
 
     def initialize(json_data)
       @file       = 'assets/' + json_data['relPath'][3..-1]
@@ -17,6 +18,13 @@ module Platformer
                       [ entry['enumValueId'].downcase.to_sym, entry['tileIds'] ]
                     end
                     .to_h
+
+      @tiles      = []
+      @types.each_pair do |type,tiles_list|
+        tiles_list.each do |tile_index|
+          @tiles[tile_index] = type
+        end
+      end
     end
 
     def tile_coordinates(index)

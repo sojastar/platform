@@ -4,13 +4,14 @@ class Player < Actor
   # ---=== INITIALISATION : ===---
   def initialize(animation,fsm,start_x,start_y,health)
     super(animation,fsm,start_x,start_y)
+    puts start_x, start_y
     
     @health = health
   end
   
 
   # ---=== UPDATE : ===---
-  def update(args,sector)
+  def update(args,room)
 
     # --- 1. Updating state :
     @machine.update(args)
@@ -18,9 +19,9 @@ class Player < Actor
 
 
     # --- 3. Collisions :
-    @collision_rects  = surrounding_tiles(sector.current_room)
+    @collision_rects  = surrounding_tiles(room)
     @dx, @dy  = Collisions::resolve_collisions_with_rects [ @x, @y ],
-                                                          [ @animation.width, 8],#@animation.width ],
+                                                          [ @animation.width, @animation.height],
                                                           [ @dx, @dy ],
                                                           @collision_rects
 
@@ -32,18 +33,19 @@ class Player < Actor
   # ---=== COLLISIONS : ===---
   def surrounding_tiles(room)
     # --- Player start tile :
-    tile_size                 = room.sector.tile_size
+    tile_size                 = room.sector.tileset.tile_size
     tile_x, tile_y            = Utilities::pixel_to_tile  @x, @y, tile_size
 
     # --- Player end tile :
     next_tile_x, next_tile_y  = Utilities::pixel_to_tile  @x + @dx, @y + @dy, tile_size
 
-    if @dx >= 0 then  next_tile_x += 1
-    else              next_tile_x -= 1
+    #puts "tile: #{tile_x},#{tile_y} - next tile: #{next_tile_x},#{next_tile_y}"
+    if    @dx > 0 then  next_tile_x += 1
+    elsif @dx < 0 then  next_tile_x -= 1
     end
 
-    if @dy >= 0 then  next_tile_y += 1
-    else              next_tile_y -= 1
+    if    @dy > 0 then  next_tile_y += 1
+    elsif @dy < 0 then  next_tile_y -= 1
     end
 
     # --- Movement / Potential collision zone :
@@ -55,14 +57,19 @@ class Player < Actor
 
     # --- List of collidable rects :
     rects = []
-    bottom.upto(top) do |row|
-      left.upto(right) do |column|
-        case room.tile_type_at( column, row )
-        when :block     then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
-        when :platform  then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
+    #bottom.upto(top) do |row|
+    (tile_y - 1).upto(tile_y + 1) do |row|
+      #left.upto(right) do |column|
+      (tile_x - 1).upto(tile_x + 1) do |column|
+        if room.coords_inside? column, row then        
+          case room.tile_type_at( column, row )
+          when :wall      then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
+          when :platform  then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
+          end
         end
       end
     end
+    #puts '------'
 
     rects
   end
