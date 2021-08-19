@@ -32,7 +32,7 @@ class Player < Actor
   # ---=== COLLISIONS : ===---
   def surrounding_tiles(room)
     # --- Player start tile :
-    tile_size                 = room.tile_size
+    tile_size                 = room.sector.tile_size
     tile_x, tile_y            = Utilities::pixel_to_tile  @x, @y, tile_size
 
     # --- Player end tile :

@@ -54,7 +54,7 @@ def tick(args)
   # --- 3. Render :
   args.outputs.background_color = [64, 0, 128]
 
-  args.state.sector.render args, SCALE
+  args.state.sector.render args, SCALE, true
 end
 
 

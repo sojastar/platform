@@ -68,7 +68,8 @@ module Platformer
           layer['entityInstances'].each do |exit_data|
             fields_data = exit_data['fieldInstances']
             @exits << { rect:             [ exit_data['px'][0],
-                                            exit_data['px'][1],
+                                            #@pixel_height - exit_data['px'][1] - @sector.tileset.tile_size,
+                                            @pixel_height - exit_data['px'][1],
                                             exit_data['width'],
                                             exit_data['height'] ],
                         orientation:      extract_field_value(fields_data, 'orientation').downcase.to_sym,
@@ -125,35 +126,43 @@ module Platformer
 
 
     # ---=== RENDER : ===---
-    def render(args,scale)
+    def render(args,scale,debug=false)
       offset_x  = ( args.grid.right - @pixel_width  * scale ).div(2)
       offset_y  = ( args.grid.top   - @pixel_height * scale ).div(2)
 
       # Static tiles :
-      args.outputs.sprites << { x:    offset_x,
-                                y:    offset_y,
-                                w:    @pixel_width * scale,
-                                h:    @pixel_height * scale,
-                                path: @symbol,
+      args.render_target(:final).sprites << { x:        0,
+                                              y:        0,
+                                              w:        @pixel_width,
+                                              h:        @pixel_height,
+                                              path:     @symbol,
+                                              source_x: 0,
+                                              source_y: 0,
+                                              source_w: @pixel_width,
+                                              source_h: @pixel_height }
+
+      # Animated tiles :
+      args.render_target(:final).sprites << @animated_tiles.map do |tile|
+                                              tile[:steps][tile[:current_step]]
+                                            end
+
+      # DEBUG - Exits :
+      if debug then
+        args.render_target(:final).borders << @exits.map do |exit_data|
+                                                exit_data[:rect] + [ 0, 128, 255, 255 ]
+                                              end
+      end
+
+      # Final render :
+      args.outputs.sprites << { x:        offset_x,
+                                y:        offset_y,
+                                w:        @pixel_width * scale,
+                                h:        @pixel_height * scale,
+                                path:     :final,
                                 source_x: 0,
                                 source_y: 0,
                                 source_w: @pixel_width,
                                 source_h: @pixel_height }
-
-      # Animated tiles :
-      args.outputs.sprites << @animated_tiles.map do |tile|
-                                raw_tile      = tile[:steps][tile[:current_step]]
-
-                                { x:        raw_tile[:x] * scale + offset_x,
-                                  y:        raw_tile[:y] * scale + offset_y,
-                                  w:        raw_tile[:w] * scale,
-                                  h:        raw_tile[:h] * scale,
-                                  path:     raw_tile[:path],
-                                  source_x: raw_tile[:source_x],
-                                  source_y: raw_tile[:source_y],
-                                  source_w: raw_tile[:source_w],
-                                  source_h: raw_tile[:source_h] }
-                              end
     end
 
 
