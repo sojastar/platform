@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 26,
+	"nextUid": 27,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -257,6 +257,29 @@
 					"acceptFileTypes": null,
 					"defaultOverride": null,
 					"textLanguageMode": null
+				},
+				{
+					"identifier": "random_start",
+					"__type": "Bool",
+					"uid": 26,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ false ]
+					},
+					"textLanguageMode": null
 				}
 			]
 		}
@@ -354,6 +377,16 @@
 									"__type": "Array<Int>",
 									"defUid": 25,
 									"realEditorValues": [ { "id": "V_Int", "params": [41] }, { "id": "V_Int", "params": [43] } ]
+								},
+								{
+									"__identifier": "random_start",
+									"__value": false,
+									"__type": "Bool",
+									"defUid": 26,
+									"realEditorValues": [{
+										"id": "V_Bool",
+										"params": [ false ]
+									}]
 								}
 							]
 						},
@@ -374,6 +407,16 @@
 									"__type": "Array<Int>",
 									"defUid": 25,
 									"realEditorValues": [ { "id": "V_Int", "params": [41] }, { "id": "V_Int", "params": [43] } ]
+								},
+								{
+									"__identifier": "random_start",
+									"__value": false,
+									"__type": "Bool",
+									"defUid": 26,
+									"realEditorValues": [{
+										"id": "V_Bool",
+										"params": [ false ]
+									}]
 								}
 							]
 						},
@@ -394,6 +437,16 @@
 									"__type": "Array<Int>",
 									"defUid": 25,
 									"realEditorValues": [ { "id": "V_Int", "params": [41] }, { "id": "V_Int", "params": [43] } ]
+								},
+								{
+									"__identifier": "random_start",
+									"__value": false,
+									"__type": "Bool",
+									"defUid": 26,
+									"realEditorValues": [{
+										"id": "V_Bool",
+										"params": [ false ]
+									}]
 								}
 							]
 						}

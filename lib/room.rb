@@ -56,7 +56,7 @@ module Platformer
                                     end
 
               when 'random_start'
-                animation[:current_step] = rand animation[:steps].length
+                animation[:current_step] = rand(animation[:steps].length) if field['__value']
 
               end
             end
