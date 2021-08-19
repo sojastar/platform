@@ -36,5 +36,11 @@ describe Platformer::TileSet do
     assert_equal  [56, 56], t.tile_coordinates(7)
     assert_equal  [ 0, 48], t.tile_coordinates(8)
     assert_equal  [56,  0], t.tile_coordinates(63)
+
+    assert_equal         64, t.tiles.length
+    assert_equal      :wall, t.tiles[0]
+    assert_equal  :platform, t.tiles[24]
+    assert_equal     :water, t.tiles[41]
+    assert_equal     :empty, t.tiles[61]
   end
 end
