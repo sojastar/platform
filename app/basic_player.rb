@@ -58,16 +58,16 @@ class Player
                     @dx = 0
                   end
 
+                  add_event(next_state: :jumping_up) do |args|
+                    args.inputs.keyboard.key_down.space
+                  end
+
                   add_event(next_state: :walking_left) do |args|
                     args.inputs.keyboard.key_held.left
                   end
 
                   add_event(next_state: :walking_right) do |args|
                     args.inputs.keyboard.key_held.right
-                  end
-
-                  add_event(next_state: :jumping_up) do |args|
-                    args.inputs.keyboard.key_down.space
                   end
                 end
 
