@@ -4,7 +4,6 @@ class Player < Actor
   # ---=== INITIALISATION : ===---
   def initialize(animation,fsm,start_x,start_y,health)
     super(animation,fsm,start_x,start_y)
-    puts start_x, start_y
     
     @health = health
   end
@@ -64,7 +63,7 @@ class Player < Actor
         if room.coords_inside? column, row then        
           case room.tile_type_at( column, row )
           when :wall      then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
-          when :platform  then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
+          when :platform  then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ] if @dy <= 0
           end
         end
       end

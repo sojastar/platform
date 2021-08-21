@@ -42,11 +42,11 @@ describe Platformer::Room do
     ### Exits :
     assert_equal  2, r.exits.length
 
-    assert_equal  [120, 24, 8, 24], r.exits.first[:rect]
-    assert_equal         :vertical, r.exits.first[:orientation]
-    assert_equal            :room1, r.exits.first[:destination_name]
-    assert_equal                 0, r.exits.first[:destination_x]
-    assert_equal                 4, r.exits.first[:destination_y]
+    assert_equal  [120, 24, 128, 64], r.exits.first[:rect]
+    assert_equal              :room1, r.exits.first[:destination_name]
+    assert_equal                   0, r.exits.first[:destination_x]
+    assert_equal                  32, r.exits.first[:destination_y]
+    assert_equal              [1, 0], r.exits.first[:destination_offset]
 
     ### Animated Tiles :
     assert_equal  3, r.animated_tiles.length

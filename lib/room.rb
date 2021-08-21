@@ -82,14 +82,30 @@ module Platformer
         when 'Exits'
           layer['entityInstances'].each do |exit_data|
             fields_data = exit_data['fieldInstances']
-            @exits << { rect:             [ exit_data['px'][0],
-                                            @pixel_height - exit_data['px'][1],
-                                            exit_data['width'],
-                                            exit_data['height'] ],
-                        orientation:      extract_field_value(fields_data, 'orientation').downcase.to_sym,
-                        destination_name: extract_field_value(fields_data, 'room').downcase.to_sym,
-                        destination_x:    extract_field_value(fields_data, 'x'),
-                        destination_y:    extract_field_value(fields_data, 'y')  }
+
+            orientation = extract_field_value(fields_data, 'orientation').to_sym
+            offset      = case orientation
+                          when :up    then [ @sector.tileset.tile_size / 2, 1 - @sector.tileset.tile_size / 2]
+                          when :left  then [ -1 + @sector.tileset.tile_size / 2, -@sector.tileset.tile_size / 2]
+                          when :down  then [ @sector.tileset.tile_size / 2, -@sector.tileset.tile_size / 2]
+                          when :right then [ 1 + @sector.tileset.tile_size / 2, -@sector.tileset.tile_size / 2]
+                          else               [ 0,  0]
+                          end
+
+            @exits << { rect:               [ exit_data['px'][0],
+                                              @pixel_height - exit_data['px'][1],
+                                              exit_data['width'],
+                                              exit_data['height'] ],
+                        orientation:        orientation,
+                        destination_name:   extract_field_value(fields_data, 'room').downcase.to_sym,
+                        destination_x:      extract_field_value(fields_data, 'x') * @sector.tileset.tile_size,
+                        # vvv !!! WILL BE UPDATED LATER BECAUSE THE   ...     !!! vvv
+                        # vvv !!! ... DESTINATION ROOM MIGHT NOT HAVE ...     !!! vvv
+                        # vvv !!! ... LOADED YET.                             !!! vvv
+                        # vvv !!! SO THAT WILL BE DONE AT THE SECTOR  ...     !!! vvv 
+                        # vvv !!! ... INIT LEVEL, AFTER ALL ROOMS ARE LOADED. !!! vvv
+                        destination_y:      extract_field_value(fields_data, 'y') * @sector.tileset.tile_size,
+                        destination_offset: offset  }
           end
 
         when 'Tiles'
@@ -119,6 +135,7 @@ module Platformer
         end
       end
 
+      # Have to account for the LDtk vs DragonRuby vertical orientation :
       @tiles.reverse!
     end
 
@@ -144,8 +161,48 @@ module Platformer
 
     # ---=== UPDATE : ===---
     def update(args,player)
+
+      # Player :
       player.update args, self
 
+      # Exits :
+      @exits.each do |exit_data|
+        should_exit = false
+        case exit_data[:orientation]
+        when :up
+          should_exit = true if player.y - player.animation.height / 2 >= exit_data[:rect][1]
+
+        when :right
+          #puts "#{player.x - player.animation.width / 2} | #{exit_data[:rect][0]}"
+          should_exit = true if player.x - player.animation.width / 2 >= exit_data[:rect][0]
+
+        when :down
+          should_exit = true if player.y + player.animation.height / 2 <= exit_data[:rect][1] + exit_data[:rect][3]
+
+        when :left
+          should_exit = true if player.x + player.animation.width / 2 <= exit_data[:rect][0] + exit_data[:rect][2]
+
+        end
+
+        if should_exit then
+          @sector.move_to_room  exit_data[:destination_name],
+                                player,
+                                exit_data[:destination_x] + exit_data[:destination_offset][0],
+                                exit_data[:destination_y] + exit_data[:destination_offset][1]
+        end
+
+        #if  player.x - player.animation.width / 2  >= exit_data[:rect][0]                           &&
+        #    player.x + player.animation.width / 2  <= exit_data[:rect][0] + exit_data[:rect][2]  &&
+        #    player.y - player.animation.height / 2 >= exit_data[:rect][1]                           &&
+        #    player.y + player.animation.height / 2 <= exit_data[:rect][1] + exit_data[:rect][3] then
+        #  @sector.move_to_room  exit_data[:destination_name],
+        #                        player,
+        #                        exit_data[:destination_x] + exit_data[:destination_offset][0],
+        #                        exit_data[:destination_y] + exit_data[:destination_offset][1]
+        #end
+      end
+
+      # Animated Tiles :
       @animated_tiles.each do |tile|
         if args.tick_count % tile[:speed] == 0 then
           tile[:current_step] = ( tile[:current_step] + 1 ) % tile[:steps].length

@@ -18,6 +18,13 @@ module Platformer
                           Platformer::Room.new(self, level) ]
                       end
                       .to_h
+      
+      # Have to account for the LDtk vs DragonRuby vertical orientation :
+      @rooms.each_pair do |name,room|
+        room.exits.each do |exit_data|
+          exit_data[:destination_y] = @rooms[exit_data[:destination_name]].pixel_height - exit_data[:destination_y]
+        end
+      end
 
       @player       = nil
     end
@@ -30,6 +37,12 @@ module Platformer
     # ---=== UPDATE : ===---
     def update(args,player)
       @rooms[@current_room].update(args,player)
+    end
+
+    def move_to_room(name,player,x,y)
+      @current_room = name
+      player.x = x
+      player.y = y
     end
 
 

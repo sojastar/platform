@@ -1,6 +1,8 @@
 class Actor
   attr_sprite
-  attr_accessor :dx, :dy
+  attr_accessor :dx, :dy,
+                :machine,
+                :animation
 
   # ---=== INITIALISATION : ===---
   def initialize(animation,fsm,start_x,start_y)

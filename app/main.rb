@@ -16,7 +16,7 @@ require 'app/basic_player.rb'
 
 
 # ---=== CONSTANTS : ===---
-SCALE = 6
+SCALE = 5
 
 
 
