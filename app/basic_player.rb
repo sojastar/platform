@@ -45,6 +45,7 @@ class Player
 
                   # --- Gravity :
                   @dy  += GRAVITY
+                  @dy   = -4 if @dy < -4
                 end
 
                 add_state(:idle) do
