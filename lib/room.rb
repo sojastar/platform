@@ -151,7 +151,8 @@ module Platformer
 
     # ---=== ACCESSORS : ===---
     def tile_type_at(x,y)
-      @sector.tileset.tiles[@tiles[y][x]]
+      type = @sector.tileset.tiles[@tiles[y][x]]
+      type.nil? ? :empty : type
     end
 
     def coords_inside?(x,y)

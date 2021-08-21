@@ -38,22 +38,21 @@ class Player < Actor
     # --- Player end tile :
     next_tile_x, next_tile_y  = Utilities::pixel_to_tile  @x + @dx, @y + @dy, tile_size
 
-    #puts "tile: #{tile_x},#{tile_y} - next tile: #{next_tile_x},#{next_tile_y}"
-    if    @dx > 0 then  next_tile_x += 1
-    elsif @dx < 0 then  next_tile_x -= 1
-    end
+    #if    @dx > 0 then  next_tile_x += 1
+    #elsif @dx < 0 then  next_tile_x -= 1
+    #end
 
-    if    @dy > 0 then  next_tile_y += 1
-    elsif @dy < 0 then  next_tile_y -= 1
-    end
+    #if    @dy > 0 then  next_tile_y += 1
+    #elsif @dy < 0 then  next_tile_y -= 1
+    #end
 
-    # --- Movement / Potential collision zone :
-    left    = [ tile_x, next_tile_x ].min
-    right   = left + ( tile_x - next_tile_x ).abs
-    bottom  = [ tile_y, next_tile_y ].min
-    top     = bottom + ( tile_y - next_tile_y ).abs
+    ## --- Movement / Potential collision zone :
+    #left    = [ tile_x, next_tile_x ].min
+    #right   = left + ( tile_x - next_tile_x ).abs
+    #bottom  = [ tile_y, next_tile_y ].min
+    #top     = bottom + ( tile_y - next_tile_y ).abs
 
-
+    #puts (@y - @animation.height / 2) % @animation.height == 0
     # --- List of collidable rects :
     rects = []
     #bottom.upto(top) do |row|
@@ -63,7 +62,7 @@ class Player < Actor
         if room.coords_inside? column, row then        
           case room.tile_type_at( column, row )
           when :wall      then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
-          when :platform  then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ] if @dy <= 0
+          when :platform  then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ] if ( @dy <= 0 && (@y - @animation.height / 2) >= (row + 1) * room.sector.tileset.tile_size )
           end
         end
       end
