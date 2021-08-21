@@ -35,12 +35,16 @@ class Player
     # ---=== FINITE STATE MACHINE : ===---
     fsm     = FSM::new_machine(nil) do
 
-                # 
                 define_update do |args|
                   # --- Player input :
-                  if    args.inputs.keyboard.key_held.right then  @dx =  1
-                  elsif args.inputs.keyboard.key_held.left  then  @dx = -1
-                  else                                            @dx =  0
+                  if    args.inputs.keyboard.key_held.right then
+                    @dx           =  1
+                    @facing_right = true
+                  elsif args.inputs.keyboard.key_held.left  then
+                    @dx           = -1
+                    @facing_right = false
+                  else
+                    @dx =  0
                   end
 
                   # --- Gravity :
