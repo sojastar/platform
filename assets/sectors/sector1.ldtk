@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 29,
+	"nextUid": 34,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -314,18 +314,84 @@
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
-			"color": "#D99494",
-			"renderMode": "Rectangle",
+			"color": "#D9D394",
+			"renderMode": "Cross",
 			"showName": true,
 			"tilesetId": null,
 			"tileId": null,
-			"tileRenderMode": "FitInside",
+			"tileRenderMode": "Stretch",
 			"maxCount": 0,
 			"limitScope": "PerLevel",
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "ActorSpawn",
+			"uid": 29,
+			"tags": [],
+			"width": 8,
+			"height": 8,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#D99494",
+			"renderMode": "Ellipse",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "Stretch",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "type",
+					"__type": "String",
+					"uid": 32,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "patrol",
+					"__type": "Array<Point>",
+					"uid": 33,
+					"type": "F_Point",
+					"isArray": true,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "PointPath",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -344,14 +410,14 @@
 				{ "enumValueId": "Empty", "tileIds": [25,26,61,62,63] },
 				{ "enumValueId": "Wall", "tileIds": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20,21,22,23,27,28,29,30,31,38,39,40,42,48,50,56,57,58] },
 				{ "enumValueId": "Platform", "tileIds": [16,17,18,24] },
-				{ "enumValueId": "Lader", "tileIds": [] },
+				{ "enumValueId": "Lader", "tileIds": [32,33] },
 				{ "enumValueId": "Water", "tileIds": [41,43,49,51] }
 			],
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
-				"opaqueTiles": "1111001111111111111111111111111100000011111100001111000001000111",
-				"averageColors": "fa65f885f885f875e795f795f965f965f875f875f875f865f965f955f965f965f752f752f752fa65fa65f965f885f875f863f632f642f955f955f955f975f975000000000000000000000000f975f975f885f8bef885f8be0000000000000000fa66f8bffa66f8bf0000000000000000e965f966e96500000000f112f112f112"
+				"opaqueTiles": "1111001111111111111111111111111111000011111100001111001101000111",
+				"averageColors": "fa65f885f885f875e795f795f965f965f875f875f875f865f965f955f965f965f752f752f752fa65fa65f965f885f875f863f632f642f955f955f955f975f975f863f8530000000000000000f975f975f885f8bef885f8be0000000000000000fa66f8bffa66f8bf00000000f112f112e965f966e96500000000f112f112f112"
 			}
 		}
 	], "enums": [{ "identifier": "Tile_Type", "uid": 17, "values": [
@@ -742,14 +808,14 @@
 						{ "px": [8,32], "src": [32,8], "f": 0, "t": 12, "d": [65] },
 						{ "px": [16,32], "src": [40,56], "f": 0, "t": 61, "d": [66] },
 						{ "px": [24,32], "src": [56,56], "f": 0, "t": 63, "d": [67] },
-						{ "px": [32,32], "src": [40,56], "f": 0, "t": 61, "d": [68] },
-						{ "px": [40,32], "src": [40,56], "f": 0, "t": 61, "d": [69] },
-						{ "px": [48,32], "src": [40,56], "f": 0, "t": 61, "d": [70] },
+						{ "px": [32,32], "src": [0,16], "f": 0, "t": 16, "d": [68] },
+						{ "px": [40,32], "src": [0,32], "f": 0, "t": 32, "d": [69] },
+						{ "px": [48,32], "src": [8,16], "f": 0, "t": 17, "d": [70] },
 						{ "px": [56,32], "src": [32,0], "f": 0, "t": 4, "d": [71] },
 						{ "px": [64,32], "src": [40,0], "f": 0, "t": 5, "d": [72] },
-						{ "px": [72,32], "src": [8,16], "f": 0, "t": 17, "d": [73] },
-						{ "px": [80,32], "src": [0,24], "f": 0, "t": 24, "d": [74] },
-						{ "px": [88,32], "src": [16,16], "f": 0, "t": 18, "d": [75] },
+						{ "px": [72,32], "src": [48,56], "f": 0, "t": 62, "d": [73] },
+						{ "px": [80,32], "src": [40,56], "f": 0, "t": 61, "d": [74] },
+						{ "px": [88,32], "src": [56,56], "f": 0, "t": 63, "d": [75] },
 						{ "px": [96,32], "src": [48,56], "f": 0, "t": 62, "d": [76] },
 						{ "px": [104,32], "src": [56,56], "f": 0, "t": 63, "d": [77] },
 						{ "px": [112,32], "src": [40,56], "f": 0, "t": 61, "d": [78] },
@@ -759,13 +825,13 @@
 						{ "px": [16,40], "src": [40,56], "f": 0, "t": 61, "d": [82] },
 						{ "px": [24,40], "src": [40,56], "f": 0, "t": 61, "d": [83] },
 						{ "px": [32,40], "src": [40,56], "f": 0, "t": 61, "d": [84] },
-						{ "px": [40,40], "src": [40,56], "f": 0, "t": 61, "d": [85] },
+						{ "px": [40,40], "src": [8,32], "f": 0, "t": 33, "d": [85] },
 						{ "px": [48,40], "src": [40,56], "f": 0, "t": 61, "d": [86] },
 						{ "px": [56,40], "src": [48,0], "f": 0, "t": 6, "d": [87] },
 						{ "px": [64,40], "src": [24,0], "f": 0, "t": 3, "d": [88] },
-						{ "px": [72,40], "src": [40,56], "f": 0, "t": 61, "d": [89] },
-						{ "px": [80,40], "src": [16,24], "f": 0, "t": 26, "d": [90] },
-						{ "px": [88,40], "src": [40,56], "f": 0, "t": 61, "d": [91] },
+						{ "px": [72,40], "src": [8,16], "f": 0, "t": 17, "d": [89] },
+						{ "px": [80,40], "src": [0,24], "f": 0, "t": 24, "d": [90] },
+						{ "px": [88,40], "src": [16,16], "f": 0, "t": 18, "d": [91] },
 						{ "px": [96,40], "src": [40,56], "f": 0, "t": 61, "d": [92] },
 						{ "px": [104,40], "src": [40,56], "f": 0, "t": 61, "d": [93] },
 						{ "px": [112,40], "src": [40,56], "f": 0, "t": 61, "d": [94] },
@@ -1128,7 +1194,59 @@
 					"seed": 1699276,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "ActorSpawn",
+							"__grid": [5,7],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 29,
+							"px": [40,56],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "zombie",
+									"__type": "String",
+									"defUid": 32,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["zombie"]
+									}]
+								},
+								{
+									"__identifier": "patrol",
+									"__value": [ { "cx": 11, "cy": 7 }, { "cx": 4, "cy": 7 } ],
+									"__type": "Array<Point>",
+									"defUid": 33,
+									"realEditorValues": [ {
+										"id": "V_String",
+										"params": ["11,7"]
+									}, {
+										"id": "V_String",
+										"params": ["4,7"]
+									} ]
+								}
+							]
+						},
+						{
+							"__identifier": "Exit",
+							"__grid": [10,9],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 6,
+							"px": [80,80],
+							"fieldInstances": [
+								{ "__identifier": "room", "__value": null, "__type": "String", "defUid": 10, "realEditorValues": [] },
+								{ "__identifier": "orientation", "__value": null, "__type": "String", "defUid": 14, "realEditorValues": [] },
+								{ "__identifier": "x", "__value": 0, "__type": "Int", "defUid": 15, "realEditorValues": [] },
+								{ "__identifier": "y", "__value": 0, "__type": "Int", "defUid": 16, "realEditorValues": [] }
+							]
+						}
+					]
 				},
 				{
 					"__identifier": "Animated_Tiles",

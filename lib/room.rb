@@ -151,8 +151,7 @@ module Platformer
 
     # ---=== ACCESSORS : ===---
     def tile_type_at(x,y)
-      type = @sector.tileset.tiles[@tiles[y][x]]
-      type.nil? ? :empty : type
+      @sector.tileset.tiles[@tiles[y][x]]
     end
 
     def coords_inside?(x,y)
@@ -174,7 +173,6 @@ module Platformer
           should_exit = true if player.y - player.animation.height / 2 >= exit_data[:rect][1]
 
         when :right
-          #puts "#{player.x - player.animation.width / 2} | #{exit_data[:rect][0]}"
           should_exit = true if player.x - player.animation.width / 2 >= exit_data[:rect][0]
 
         when :down
@@ -192,15 +190,6 @@ module Platformer
                                 exit_data[:destination_y] + exit_data[:destination_offset][1]
         end
 
-        #if  player.x - player.animation.width / 2  >= exit_data[:rect][0]                           &&
-        #    player.x + player.animation.width / 2  <= exit_data[:rect][0] + exit_data[:rect][2]  &&
-        #    player.y - player.animation.height / 2 >= exit_data[:rect][1]                           &&
-        #    player.y + player.animation.height / 2 <= exit_data[:rect][1] + exit_data[:rect][3] then
-        #  @sector.move_to_room  exit_data[:destination_name],
-        #                        player,
-        #                        exit_data[:destination_x] + exit_data[:destination_offset][0],
-        #                        exit_data[:destination_y] + exit_data[:destination_offset][1]
-        #end
       end
 
       # Animated Tiles :
