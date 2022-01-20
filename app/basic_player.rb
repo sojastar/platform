@@ -168,11 +168,11 @@ class Player
 
 
     # ---=== INSTANCIATION : ===---
-    Player.new  animation,
-                fsm,
-                start_x,
-                start_y,
-                health
+    Platformer::Player.new  animation,
+                            fsm,
+                            start_x,
+                            start_y,
+                            health
 
   end
 end
