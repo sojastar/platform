@@ -202,7 +202,7 @@ module Platformer
 
 
     # ---=== RENDER : ===---
-    def render(args,player,scale,debug=false)
+    def render(args,player,scale)
       offset_x  = ( args.grid.right - @pixel_width  * scale ).div(2)
       offset_y  = ( args.grid.top   - @pixel_height * scale ).div(2)
 
@@ -226,7 +226,7 @@ module Platformer
       args.render_target(:final).sprites << player.render(args) 
 
       # DEBUG - Exits :
-      if debug then
+      if args.state.debug then
         args.render_target(:final).borders << @exits.map do |exit_data|
                                                 exit_data[:rect] + [ 0, 128, 255, 255 ]
                                               end

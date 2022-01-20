@@ -662,10 +662,10 @@
 								},
 								{
 									"__identifier": "y",
-									"__value": 5,
+									"__value": 4,
 									"__type": "Int",
 									"defUid": 16,
-									"realEditorValues": [{ "id": "V_Int", "params": [5] }]
+									"realEditorValues": [{ "id": "V_Int", "params": [4] }]
 								}
 							]
 						},

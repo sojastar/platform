@@ -36,20 +36,53 @@ class Player
     fsm     = FSM::new_machine(nil) do
 
                 define_update do |args|
-                  # --- Player input :
-                  if    args.inputs.keyboard.key_held.right then
-                    @dx           =  1
-                    @facing_right = true
-                  elsif args.inputs.keyboard.key_held.left  then
-                    @dx           = -1
-                    @facing_right = false
-                  else
-                    @dx =  0
-                  end
+                  if @mode == :play then                   
+                    # --- Player input :
+                    if    args.inputs.keyboard.key_held.right then
+                      @dx           =  1
+                      @facing_right = true
+                    elsif args.inputs.keyboard.key_held.left  then
+                      @dx           = -1
+                      @facing_right = false
+                    else
+                      @dx =  0
+                    end
 
-                  # --- Gravity :
-                  @dy  += GRAVITY
-                  @dy   = -4 if @dy < -4
+                    # --- Gravity :
+                    @dy  += Platformer::GRAVITY
+                    @dy   = -Platformer::MAX_SPEED if @dy < -Platformer::MAX_SPEED
+
+                    if args.inputs.keyboard.key_held.r then
+                      @moves        = $gtk.parse_json_file 'assets/debug/reproduce.json'
+                      @mode         = :replay 
+                      @replay_head  = 0
+                      @x, @y        = @moves[@replay_head]["position"]
+                      @dx, @dy      = @moves[@replay_head]["velocity"]
+                      @facing_right = @moves[@replay_head]["direction"]
+                    end
+
+                  elsif @mode == :replay then
+                    if args.inputs.keyboard.key_down.n then
+                      @replay_head += 1
+                      puts "#{@replay_head} - #{@moves[@replay_head]}"
+                    end
+
+                    if args.inputs.keyboard.key_down.b then
+                      @replay_head -= 1
+                      puts "#{@replay_head} - #{@moves[@replay_head]}"
+                    end
+
+                    @replay_head = 0                 if @replay_head == @moves.length
+                    @replay_head = @moves.length - 1 if @replay_head < 0
+
+                    @x, @y        = @moves[@replay_head]["position"]
+                    @dx, @dy      = @moves[@replay_head]["velocity"]
+                    @facing_right = @moves[@replay_head]["direction"]
+                  end
+                  
+                  if args.inputs.keyboard.key_held.p then
+                    @mode = :record
+                  end
                 end
 
                 add_state(:idle) do

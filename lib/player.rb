@@ -1,11 +1,17 @@
 class Player < Actor
-  GRAVITY = -0.4
+  MAX_REPLAY_LENGTH = 32
+  attr_accessor :x, :y
 
   # ---=== INITIALISATION : ===---
   def initialize(animation,fsm,start_x,start_y,health)
     super(animation,fsm,start_x,start_y)
     
     @health = health
+
+    @moves        = []
+    @mode         = :play
+    @replay_head  = 0
+    @replay_speed = MAX_REPLAY_LENGTH
   end
   
 
@@ -18,11 +24,13 @@ class Player < Actor
 
 
     # --- 3. Collisions :
-    @collision_rects  = surrounding_tiles(room)
-    @dx, @dy  = Collisions::resolve_collisions_with_rects [ @x, @y ],
-                                                          [ @animation.width, @animation.height],
-                                                          [ @dx, @dy ],
-                                                          @collision_rects
+    collision_rects, bottom_tile  = surrounding_tiles(room)
+    @dx, @dy, diagonal            = Collisions::resolve_collisions_with_rects [ @x, @y ],
+                                                                              [ @animation.width, @animation.height],
+                                                                              [ @dx, @dy ],
+                                                                              collision_rects
+
+    @dx, @dy = 0.0, -1.0 if diagonal && bottom_tile == :empty
 
     @x += @dx
     @y += @dy
@@ -35,41 +43,26 @@ class Player < Actor
     tile_size                 = room.sector.tileset.tile_size
     tile_x, tile_y            = Utilities::pixel_to_tile  @x, @y, tile_size
 
-    # --- Player end tile :
-    next_tile_x, next_tile_y  = Utilities::pixel_to_tile  @x + @dx, @y + @dy, tile_size
-
-    #if    @dx > 0 then  next_tile_x += 1
-    #elsif @dx < 0 then  next_tile_x -= 1
-    #end
-
-    #if    @dy > 0 then  next_tile_y += 1
-    #elsif @dy < 0 then  next_tile_y -= 1
-    #end
-
-    ## --- Movement / Potential collision zone :
-    #left    = [ tile_x, next_tile_x ].min
-    #right   = left + ( tile_x - next_tile_x ).abs
-    #bottom  = [ tile_y, next_tile_y ].min
-    #top     = bottom + ( tile_y - next_tile_y ).abs
-
-    #puts (@y - @animation.height / 2) % @animation.height == 0
     # --- List of collidable rects :
     rects = []
-    #bottom.upto(top) do |row|
     (tile_y - 1).upto(tile_y + 1) do |row|
-      #left.upto(right) do |column|
       (tile_x - 1).upto(tile_x + 1) do |column|
-        if room.coords_inside? column, row then        
+        if room.coords_inside? column, row then
           case room.tile_type_at( column, row )
-          when :wall      then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
-          when :platform  then  rects << [ column * tile_size, row * tile_size, tile_size, tile_size ] if ( @dy <= 0 && (@y - @animation.height / 2) >= (row + 1) * room.sector.tileset.tile_size )
+          when :wall
+            rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
+          when :platform
+            rects << [ column * tile_size, row * tile_size, tile_size, tile_size ] if ( @dy <= 0 && (@y - @animation.height / 2) >= (row + 1) * room.sector.tileset.tile_size )
+          when :lader
+            rects << [ column * tile_size, row * tile_size, tile_size, tile_size ] if ( @dy <= 0 && (@y - @animation.height / 2) >= (row + 1) * room.sector.tileset.tile_size )
           end
         end
       end
     end
-    #puts '------'
 
-    rects
+    bottom_tile = room.tile_type_at tile_x, tile_y - 1
+
+    [ rects, bottom_tile ]
   end
 
 

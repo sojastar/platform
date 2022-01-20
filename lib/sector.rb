@@ -47,8 +47,8 @@ module Platformer
 
 
     # ---=== RENDER : ===---
-    def render(args,player,scale,debug=false)
-      @rooms[@current_room].render(args, player, scale, debug)
+    def render(args,player,scale)
+      @rooms[@current_room].render(args, player, scale)
     end
 
 

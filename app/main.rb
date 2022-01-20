@@ -1,3 +1,4 @@
+require 'lib/constants.rb'
 require 'lib/utilities.rb'
 require 'lib/fsm_machine.rb'
 require 'lib/fsm_state.rb'
@@ -30,6 +31,8 @@ def setup(args)
                                                         args.state.sector.current_room.start_y,
                                                         3
 
+  args.state.debug      = false
+
   args.state.setup_done = true
 end
 
@@ -53,8 +56,7 @@ def tick(args)
 
   args.state.sector.render  args,
                             args.state.player,
-                            SCALE,
-                            false#true
+                            SCALE
 end
 
 
