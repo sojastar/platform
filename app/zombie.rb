@@ -1,0 +1,2 @@
+class Zombie < Actor
+end
