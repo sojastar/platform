@@ -47,7 +47,7 @@ class Zombie
     # ---=== INSTANCIATION : ===---
     Platformer::Monster.new animation,
                             fsm,
-                            spawn_x - 4, spawn_y - 4,
+                            spawn_x + 4, spawn_y - 4,
                             health,
                             path,
                             speed

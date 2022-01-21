@@ -40,7 +40,7 @@ module Platformer
               @start_y  = @pixel_height - spawn_point['px'][1]
 
             when 'ActorSpawn'
-              spawn_x = spawn_point['px'][-1]
+              spawn_x = spawn_point['px'][0]
               spawn_y = @pixel_height - spawn_point['px'][1]
               type    = extract_field_value(spawn_point['fieldInstances'], 'type').capitalize
               health  = extract_field_value(spawn_point['fieldInstances'], 'health').to_i
@@ -145,8 +145,6 @@ module Platformer
 
         end
       end
-
-      puts @actors
 
       # Have to account for the LDtk vs DragonRuby vertical orientation :
       @tiles.reverse!
