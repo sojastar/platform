@@ -39,7 +39,6 @@ class Camera
     source_w  = @width
     source_h  = @height
 
-    #puts "offset: #{@offset_x},#{@offset_y} - size: #{@width * @scale},#{@height * @scale} - source: #{source_x},#{source_y},#{source_w},#{source_h}"
     args.render_target(:camera).width   @width
     args.render_target(:camera).height  @height
     args.render_target(:camera).sprites <<  { x:         @offset_x,

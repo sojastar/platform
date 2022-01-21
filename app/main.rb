@@ -1,3 +1,6 @@
+# ---=== 1. REQUIRES : ===----
+
+# --- 1.1. Engine :
 require 'lib/constants.rb'
 require 'lib/utilities.rb'
 require 'lib/fsm_machine.rb'
@@ -10,20 +13,24 @@ require 'lib/sector.rb'
 require 'lib/actor.rb'
 require 'lib/collisions.rb'
 require 'lib/player.rb'
+require 'lib/monster.rb'
+
+# --- 1.2. Game Specific :
 require 'app/basic_player.rb'
+require 'app/zombie.rb'
 
 
 
 
 
-# ---=== CONSTANTS : ===---
+# ---=== 2. CONSTANTS : ===---
 SCALE = 5
 
 
 
 
 
-# ---=== SETUP : ===---
+# ---=== 3. SETUP : ===---
 def setup(args)
   args.state.sector     = Platformer::Sector.new 'assets/sectors/sector1.ldtk'
 
@@ -40,18 +47,18 @@ end
 
 
 
-# ---=== MAIN LOOP : ===---
+# ---=== 4. MAIN LOOP : ===---
 def tick(args)
 
-  # --- 1. Setup :
+  # --- 4.1. Setup :
   setup(args) unless args.state.setup_done
 
 
-  # --- 2. Main Loop :
+  # --- 4.2. Main Loop :
   args.state.sector.update args, args.state.player
 
 
-  # --- 3. Render :
+  # --- 4.3. Render :
   args.outputs.background_color = [0, 0, 0]
 
   args.state.sector.render  args,

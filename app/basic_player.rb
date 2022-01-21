@@ -1,4 +1,4 @@
-class Player
+module Player
   def self.spawn_basic_player_at(start_x,start_y,health)
     
     # ---=== ANIMATION : ===---

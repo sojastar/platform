@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 34,
+	"nextUid": 36,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -372,7 +372,27 @@
 					"textLanguageMode": null
 				},
 				{
-					"identifier": "patrol",
+					"identifier": "health",
+					"__type": "Int",
+					"uid": 34,
+					"type": "F_Int",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": { "id": "V_Int", "params": [1] },
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "path",
 					"__type": "Array<Point>",
 					"uid": 33,
 					"type": "F_Point",
@@ -389,6 +409,26 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "speed",
+					"__type": "Float",
+					"uid": 35,
+					"type": "F_Float",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": { "id": "V_Float", "params": [1] },
 					"textLanguageMode": null
 				}
 			]
@@ -416,8 +456,8 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
-				"opaqueTiles": "1111001111111111111111111111111111000011111100001111001101000111",
-				"averageColors": "fa65f885f885f875e795f795f965f965f875f875f875f865f965f955f965f965f752f752f752fa65fa65f965f885f875f863f632f642f955f955f955f975f975f863f8530000000000000000f975f975f885f8bef885f8be0000000000000000fa66f8bffa66f8bf00000000f112f112e965f966e96500000000f112f112f112"
+				"opaqueTiles": "1111111111111111111111111111111111000011111100001111001111100111",
+				"averageColors": "fa65f885f885f875f695f795f965f965f875f875f875f865f965f955f965f965f752f752f752fa65fa65f965f885f875f863f632f642f955f955f955f975f975f863f8530000000000000000f975f975f885f8bef885f8be0000000000000000fa66f8bffa66f8bf00000000f112f112f955f966f95500000000f112f112f112"
 			}
 		}
 	], "enums": [{ "identifier": "Tile_Type", "uid": 17, "values": [
@@ -480,6 +520,55 @@
 							"defUid": 27,
 							"px": [56,16],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "ActorSpawn",
+							"__grid": [11,6],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 29,
+							"px": [88,48],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "zombie",
+									"__type": "String",
+									"defUid": 32,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["zombie"]
+									}]
+								},
+								{
+									"__identifier": "path",
+									"__value": [ { "cx": 13, "cy": 6 }, { "cx": 9, "cy": 6 } ],
+									"__type": "Array<Point>",
+									"defUid": 33,
+									"realEditorValues": [ {
+										"id": "V_String",
+										"params": ["13,6"]
+									}, {
+										"id": "V_String",
+										"params": ["9,6"]
+									} ]
+								},
+								{
+									"__identifier": "health",
+									"__value": 1,
+									"__type": "Int",
+									"defUid": 34,
+									"realEditorValues": [{ "id": "V_Int", "params": [1] }]
+								},
+								{
+									"__identifier": "speed",
+									"__value": 1,
+									"__type": "Float",
+									"defUid": 35,
+									"realEditorValues": [{ "id": "V_Float", "params": [1] }]
+								}
+							]
 						}
 					]
 				},
@@ -1216,7 +1305,7 @@
 									}]
 								},
 								{
-									"__identifier": "patrol",
+									"__identifier": "path",
 									"__value": [ { "cx": 11, "cy": 7 }, { "cx": 4, "cy": 7 } ],
 									"__type": "Array<Point>",
 									"defUid": 33,
@@ -1227,6 +1316,20 @@
 										"id": "V_String",
 										"params": ["4,7"]
 									} ]
+								},
+								{
+									"__identifier": "health",
+									"__value": 1,
+									"__type": "Int",
+									"defUid": 34,
+									"realEditorValues": [{ "id": "V_Int", "params": [1] }]
+								},
+								{
+									"__identifier": "speed",
+									"__value": 1,
+									"__type": "Float",
+									"defUid": 35,
+									"realEditorValues": [{ "id": "V_Float", "params": [1] }]
 								}
 							]
 						},

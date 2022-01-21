@@ -25,6 +25,7 @@ module Platformer
       @tiles          = []
       @exits          = []
       @animated_tiles = []
+      @actors         = []
 
       @start_x        = 0
       @start_y        = 0
@@ -39,9 +40,19 @@ module Platformer
               @start_y  = @pixel_height - spawn_point['px'][1]
 
             when 'ActorSpawn'
-              puts 'Spawning actors one day'
+              spawn_x = spawn_point['px'][-1]
+              spawn_y = @pixel_height - spawn_point['px'][1]
+              type    = extract_field_value(spawn_point['fieldInstances'], 'type').capitalize
+              health  = extract_field_value(spawn_point['fieldInstances'], 'health').to_i
+              path    = extract_field_value(spawn_point['fieldInstances'], 'path').map do |point|
+                          [ point['cx'], point['cy'] ]
+                        end 
+              speed   = extract_field_value(spawn_point['fieldInstances'], 'speed').to_f
+              #puts "Trying to spawn #{actor_type} with patrol #{actor_patrol} at #{start_x},#{start_y}"
 
+              @actors << Object::const_get(type).spawn_at(spawn_x, spawn_y, health, path, speed)
             end
+
           end
 
         when 'Animated_Tiles'
@@ -135,6 +146,8 @@ module Platformer
         end
       end
 
+      puts @actors
+
       # Have to account for the LDtk vs DragonRuby vertical orientation :
       @tiles.reverse!
     end
@@ -198,6 +211,9 @@ module Platformer
           tile[:current_step] = ( tile[:current_step] + 1 ) % tile[:steps].length
         end
       end
+
+      # Actors :
+      @actors.each { |actor| actor.update args, self }
     end
 
 
@@ -221,6 +237,9 @@ module Platformer
       args.render_target(:final).sprites << @animated_tiles.map do |tile|
                                               tile[:steps][tile[:current_step]]
                                             end
+
+      # Actors :
+      args.render_target(:final).sprites << @actors.map { |actor| actor.render(args) }
 
       # Player :
       args.render_target(:final).sprites << player.render(args) 
