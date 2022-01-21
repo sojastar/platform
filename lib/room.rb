@@ -19,8 +19,9 @@ module Platformer
       @pixel_width    = json_data['pxWid']
       @pixel_height   = json_data['pxHei']
 
-      @tile_width     = json_data['pxWid'] / @sector.tileset.tile_size
-      @tile_height    = json_data['pxHei'] / @sector.tileset.tile_size
+      @tile_size      = @sector.tileset.tile_size
+      @tile_width     = json_data['pxWid'] / @tile_size
+      @tile_height    = json_data['pxHei'] / @tile_size
 
       @tiles          = []
       @exits          = []
@@ -48,9 +49,12 @@ module Platformer
                           [ point['cx'], point['cy'] ]
                         end 
               speed   = extract_field_value(spawn_point['fieldInstances'], 'speed').to_f
-              #puts "Trying to spawn #{actor_type} with patrol #{actor_patrol} at #{start_x},#{start_y}"
 
-              @actors << Object::const_get(type).spawn_at(spawn_x, spawn_y, health, path, speed)
+              @actors << Object::const_get(type).spawn_at(  [ spawn_x, spawn_y ],
+                                                            [ @tile_size, @tile_size ],
+                                                            health,
+                                                            path,
+                                                            speed )
             end
 
           end
