@@ -1,17 +1,16 @@
 class Zombie
-  def self.spawn_at(spawn_x,spawn_y,health,path,speed)
+  def self.spawn_at(spawn,size,health,path,speed)
     # ---=== ANIMATION : ===---
     frames  = { walk:         { file:               '/assets/sprites/zombie_walk.png',
-                                #frames:             8.times.map { |frame| [ 0, frame ] },
                                 frames:             [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0], [7,0] ],
                                 mode:               :loop,
                                 speed:              12,
                                 flip_horizontally:  false,
                                 flip_vertically:    false } }
   
-    animation         = Animation.new 8, 8,     # width and height
-                                      frames,   # frames
-                                      :walk     # first animation
+    animation         = Animation.new size[0], size[1], # width and height
+                                      frames,           # frames
+                                      :walk             # first animation
   
   
     # ---=== FINITE STATE MACHINE : ===---
@@ -47,7 +46,7 @@ class Zombie
     # ---=== INSTANCIATION : ===---
     Platformer::Monster.new animation,
                             fsm,
-                            spawn_x + 4, spawn_y - 4,
+                            spawn[0] + size[0] / 2, spawn[1] - size[1] / 2,
                             health,
                             path,
                             speed
