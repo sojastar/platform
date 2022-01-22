@@ -5,21 +5,27 @@ module Platformer
     attr_sprite
     attr_accessor :dx, :dy,
                   :machine,
-                  :animation
+                  :animation,
+                  :facing_right
   
     # ---=== INITIALISATION : ===---
-    def initialize(animation,fsm,start_x,start_y,health)
+    def initialize(animation,fsm,size,start_x,start_y,health)
       @animation    = animation
       
       @machine      = fsm
       @machine.set_parent self
-      @machine.start
+
+      @size         = size
   
       @x, @y        = start_x, start_y
-      @dx, @dy      = 0, 0
-  
+      @dx         ||= 0.0
+      @dy         ||= 0.0
+
+      @facing_right = true
+
       @health       = health
   
+      # For replays :
       @moves        = []
       @mode         = :play
       @replay_head  = 0
@@ -32,9 +38,17 @@ module Platformer
       @machine.update(args) unless @machine.nil?
       @animation.update     unless @animation.nil?
     end
+
+    def current_state
+      @machine.current_state
+    end
   
   
     # ---=== COLLISIONS : ===---
+    def rect
+      [ @x, @y, @size[0], @size[1] ]
+    end
+
     def surrounding_tiles(room)
       # --- Player start tile :
       tile_size                 = room.sector.tileset.tile_size

@@ -1,5 +1,5 @@
 module Player
-  def self.spawn_basic_player_at(start_x,start_y,health)
+  def self.spawn_basic_player_at(size,start_x,start_y,health)
     
     # ---=== ANIMATION : ===---
     frames  = { idle:         { file:   '/assets/sprites/hero_idle.png',
@@ -25,11 +25,17 @@ module Player
                                 mode:   :once,
                                 speed:  6,
                                 flip_horizontally:  false,
-                                flip_vertically:    false } }
+                                flip_vertically:    false },
+                death:        { file:   '/assets/sprites/hero_death.png',
+                                frames: [ [0,0], [1,0], [2,0] ],
+                                mode:   :once,
+                                speed:  12,
+                                flip_horizontally:  false,
+                                flip_vertically:    false }}
 
-    animation         = Animation.new 8, 8,     # width and height
-                                      frames,   # frames
-                                      :idle     # first animation
+    animation         = Animation.new size[0], size[1], # width and height
+                                      frames,           # frames
+                                      :idle             # first animation
 
 
     # ---=== FINITE STATE MACHINE : ===---
@@ -37,29 +43,31 @@ module Player
 
                 define_update do |args|
                   if @mode == :play then                   
-                    # --- Player input :
-                    if    args.inputs.keyboard.key_held.right then
-                      @dx           =  1
-                      @facing_right = true
-                    elsif args.inputs.keyboard.key_held.left  then
-                      @dx           = -1
-                      @facing_right = false
-                    else
-                      @dx =  0
+                    if current_state != :death then
+                      # --- Player input :
+                      if    args.inputs.keyboard.key_held.right then
+                        @dx           =  1
+                        @facing_right = true
+                      elsif args.inputs.keyboard.key_held.left  then
+                        @dx           = -1
+                        @facing_right = false
+                      else
+                        @dx =  0
+                      end
+
+                      if args.inputs.keyboard.key_held.r then
+                        @moves        = $gtk.parse_json_file 'assets/debug/reproduce.json'
+                        @mode         = :replay 
+                        @replay_head  = 0
+                        @x, @y        = @moves[@replay_head]["position"]
+                        @dx, @dy      = @moves[@replay_head]["velocity"]
+                        @facing_right = @moves[@replay_head]["direction"]
+                      end
                     end
 
                     # --- Gravity :
                     @dy  += Platformer::GRAVITY
                     @dy   = -Platformer::MAX_SPEED if @dy < -Platformer::MAX_SPEED
-
-                    if args.inputs.keyboard.key_held.r then
-                      @moves        = $gtk.parse_json_file 'assets/debug/reproduce.json'
-                      @mode         = :replay 
-                      @replay_head  = 0
-                      @x, @y        = @moves[@replay_head]["position"]
-                      @dx, @dy      = @moves[@replay_head]["velocity"]
-                      @facing_right = @moves[@replay_head]["direction"]
-                    end
 
                   elsif @mode == :replay then
                     if args.inputs.keyboard.key_down.n then
@@ -102,6 +110,11 @@ module Player
                   add_event(next_state: :walking_right) do |args|
                     args.inputs.keyboard.key_held.right
                   end
+
+                  add_event(next_state: :death) do |args|
+
+                    !@actor_collisions.empty?
+                  end
                 end
 
                 add_state(:walking_left) do
@@ -120,6 +133,10 @@ module Player
 
                   add_event(next_state: :jumping_up) do |args|
                     args.inputs.keyboard.key_down.space
+                  end
+
+                  add_event(next_state: :death) do |args|
+                    !@actor_collisions.empty?
                   end
                 end
 
@@ -140,6 +157,10 @@ module Player
                   add_event(next_state: :jumping_up) do |args|
                     args.inputs.keyboard.key_down.space
                   end
+
+                  add_event(next_state: :death) do |args|
+                    !@actor_collisions.empty?
+                  end
                 end
 
                 add_state(:jumping_up) do
@@ -151,6 +172,10 @@ module Player
                   add_event(next_state: :jumping_down) do |args|
                     @dy <= 0.0
                   end
+
+                  add_event(next_state: :death) do |args|
+                    !@actor_collisions.empty?
+                  end
                 end
 
                 add_state(:jumping_down) do
@@ -161,6 +186,18 @@ module Player
                   add_event(next_state: :idle) do |args|
                     @dy == 0
                   end
+
+                  add_event(next_state: :death) do |args|
+                    !@actor_collisions.empty?
+                  end
+                end
+
+                add_state(:death) do
+                  define_setup do
+                    @dx, @dy = 0, 4
+                    record_death_tick
+                    @animation.set_clip :death
+                  end
                 end
 
                 set_initial_state :idle
@@ -170,6 +207,7 @@ module Player
     # ---=== INSTANCIATION : ===---
     Platformer::Player.new  animation,
                             fsm,
+                            size,
                             start_x,
                             start_y,
                             health

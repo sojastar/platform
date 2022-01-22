@@ -7,7 +7,10 @@ module Platformer
                 :pixel_width, :pixel_height,
                 :start_x, :start_y,
                 :exits,
-                :animated_tiles
+                :animated_tiles,
+                :actors
+
+    attr_accessor :last_entry_point
 
     # ---=== INITIALISATION : ===---
     def initialize(sector,json_data)
@@ -31,14 +34,17 @@ module Platformer
       @start_x        = 0
       @start_y        = 0
 
+      @last_entry_point = [0, 0]
+
       json_data['layerInstances'].each do |layer|
         case layer['__identifier']
         when 'Spawn'
           layer['entityInstances'].each do |spawn_point|
             case spawn_point['__identifier']
             when 'PlayerSpawn'
-              @start_x  = spawn_point['px'][0]
-              @start_y  = @pixel_height - spawn_point['px'][1]
+              @start_x          = spawn_point['px'][0]
+              @start_y          = @pixel_height - spawn_point['px'][1]
+              @last_entry_point = [ @start_x, @start_y ]
 
             when 'ActorSpawn'
               spawn_x = spawn_point['px'][0]
@@ -46,7 +52,8 @@ module Platformer
               type    = extract_field_value(spawn_point['fieldInstances'], 'type').capitalize
               health  = extract_field_value(spawn_point['fieldInstances'], 'health').to_i
               path    = extract_field_value(spawn_point['fieldInstances'], 'path').map do |point|
-                          [ point['cx'], point['cy'] ]
+                          [                 point['cx'] * @tile_size + @tile_size / 2,
+                            @pixel_height - point['cy'] * @tile_size - @tile_size / 2 ]
                         end 
               speed   = extract_field_value(spawn_point['fieldInstances'], 'speed').to_f
 
@@ -180,6 +187,8 @@ module Platformer
       # Player :
       player.update args, self
 
+      reset(player) if player.is_dead? && args.state.tick_count - player.death_tick >= RESPAWN_TIME
+
       # Exits :
       @exits.each do |exit_data|
         should_exit = false
@@ -216,6 +225,11 @@ module Platformer
 
       # Actors :
       @actors.each { |actor| actor.update args, self }
+    end
+
+    def reset(player)
+      player.reset @last_entry_point
+      @actors.each { |actor| actor.reset }
     end
 
 

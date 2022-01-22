@@ -563,10 +563,10 @@
 								},
 								{
 									"__identifier": "speed",
-									"__value": 1,
+									"__value": 0.05,
 									"__type": "Float",
 									"defUid": 35,
-									"realEditorValues": [{ "id": "V_Float", "params": [1] }]
+									"realEditorValues": [{ "id": "V_Float", "params": [0.05] }]
 								}
 							]
 						}
@@ -1004,7 +1004,57 @@
 					"seed": 1586010,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "ActorSpawn",
+							"__grid": [4,4],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 29,
+							"px": [32,32],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "zombie",
+									"__type": "String",
+									"defUid": 32,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["zombie"]
+									}]
+								},
+								{
+									"__identifier": "path",
+									"__value": [ { "cx": 6, "cy": 4 }, { "cx": 2, "cy": 4 } ],
+									"__type": "Array<Point>",
+									"defUid": 33,
+									"realEditorValues": [ {
+										"id": "V_String",
+										"params": ["6,4"]
+									}, {
+										"id": "V_String",
+										"params": ["2,4"]
+									} ]
+								},
+								{
+									"__identifier": "health",
+									"__value": 1,
+									"__type": "Int",
+									"defUid": 34,
+									"realEditorValues": [{ "id": "V_Int", "params": [1] }]
+								},
+								{
+									"__identifier": "speed",
+									"__value": 0.05,
+									"__type": "Float",
+									"defUid": 35,
+									"realEditorValues": [{ "id": "V_Float", "params": [0.05] }]
+								}
+							]
+						}
+					]
 				},
 				{
 					"__identifier": "Animated_Tiles",
@@ -1326,10 +1376,10 @@
 								},
 								{
 									"__identifier": "speed",
-									"__value": 1,
+									"__value": 0.05,
 									"__type": "Float",
 									"defUid": 35,
-									"realEditorValues": [{ "id": "V_Float", "params": [1] }]
+									"realEditorValues": [{ "id": "V_Float", "params": [0.05] }]
 								}
 							]
 						},

@@ -34,7 +34,9 @@ SCALE = 5
 def setup(args)
   args.state.sector     = Platformer::Sector.new 'assets/sectors/sector1.ldtk'
 
-  args.state.player     = Player::spawn_basic_player_at args.state.sector.current_room.start_x,
+  size                  = args.state.sector.tileset.tile_size
+  args.state.player     = Player::spawn_basic_player_at [ size, size ],
+                                                        args.state.sector.current_room.start_x,
                                                         args.state.sector.current_room.start_y,
                                                         3
 

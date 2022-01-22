@@ -43,6 +43,7 @@ module Platformer
       @current_room = name
       player.x = x
       player.y = y
+      @rooms[@current_room].last_entry_point  = [ x, y, player.facing_right ]
     end
 
 

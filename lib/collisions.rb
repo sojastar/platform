@@ -1,4 +1,11 @@
 module Collisions
+  def self.aabb_rect_vs_rect(rect1,rect2)
+               rect1[0] < rect2[0] + rect2[2] &&
+    rect1[0] + rect1[2] > rect2[0]            &&
+               rect1[1] < rect2[1] + rect2[3] &&
+    rect1[1] + rect1[3] > rect2[1]
+  end
+
   def self.resolve_collisions_with_rects(position,size,velocity,rects)
     # First round of collision testing that will teel us ...
     # ... the distance of each collision :

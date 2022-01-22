@@ -1,11 +1,19 @@
 module Platformer
   class Monster < Actor
     # ---=== INITIALIZE : ===---
-    def initialize(animation,fsm,start_x,start_y,health,path,speed) 
-      super animation, fsm, start_x, start_y, health
+    def initialize(animation,fsm,size,start_x,start_y,health,path,speed) 
+      super animation, fsm, size, start_x, start_y, health
 
-      @path   = path
-      @speed  = speed
+      @path       = path
+      #@path_index = -1  # UUUUGH!!! So ugly!!! Have to do this because  ...
+      #                  # ... the fsm initial state will immediately    ...
+      #                  # ... increment the index in its setup block.
+      #@x, @y      = @path[0][0], @path[0][1]
+
+      #@speed      = speed
+
+      #@machine.start
+      reset
     end
 
     # ---=== UPDATE : ===---
@@ -18,6 +26,25 @@ module Platformer
       @x += @dx
       @y += @dy
     end
+
+    def reset
+      @path_index = -1  # UUUUGH!!! So ugly!!! Have to do this because  ...
+                        # ... the fsm initial state will immediately    ...
+                        # ... increment the index in its setup block.
+      @x, @y      = @path[0][0], @path[0][1]
+
+      @machine.start
+    end
+
+    # ---=== PATH : ===---
+    def go_to_next_path_step
+      @path_index = ( @path_index + 1 ) % @path.length
+    end
+
+    def next_path_point
+      @path[ ( @path_index + 1 ) % @path.length ]
+    end
+
 
     # ---=== SERIALIZATION : ===---
     def serialize
