@@ -2,40 +2,40 @@ module Player
   def self.spawn_basic_player_at(size,start_x,start_y,health)
     
     # ---=== ANIMATION : ===---
-    frames  = { idle:         { file:   '/assets/sprites/hero_idle.png',
-                                frames: [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0] ],
-                                mode:   :loop,
-                                speed:  8,
-                                flip_horizontally:  false,
-                                flip_vertically:    false },
-                walk:         { file:   '/assets/sprites/hero_walk.png',
-                                frames: [ [0,0], [1,0], [2,0], [3,0] ],
-                                mode:   :loop,
-                                speed:  6,
-                                flip_horizontally:  false,
-                                flip_vertically:    false },
-                jumping_up:   { file:   '/assets/sprites/hero_jump.png',
-                                frames: [ [0,0], [1,0], [2,0], [3,0] ],
-                                mode:   :once,
-                                speed:  6,
-                                flip_horizontally:  false,
-                                flip_vertically:    false },
-                jumping_down: { file:   '/assets/sprites/hero_jump.png',
-                                frames: [ [4,0], [5,0], [6,0] ],
-                                mode:   :once,
-                                speed:  6,
-                                flip_horizontally:  false,
-                                flip_vertically:    false },
-                death:        { file:   '/assets/sprites/hero_death.png',
-                                frames: [ [0,0], [1,0], [2,0] ],
-                                mode:   :once,
-                                speed:  12,
-                                flip_horizontally:  false,
-                                flip_vertically:    false }}
+    frames    = { idle:         { file:   '/assets/sprites/hero_idle.png',
+                                  frames: [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0] ],
+                                  mode:   :loop,
+                                  speed:  8,
+                                  flip_horizontally:  false,
+                                  flip_vertically:    false },
+                  walk:         { file:   '/assets/sprites/hero_walk.png',
+                                  frames: [ [0,0], [1,0], [2,0], [3,0] ],
+                                  mode:   :loop,
+                                  speed:  6,
+                                  flip_horizontally:  false,
+                                  flip_vertically:    false },
+                  jumping_up:   { file:   '/assets/sprites/hero_jump.png',
+                                  frames: [ [0,0], [1,0], [2,0], [3,0] ],
+                                  mode:   :once,
+                                  speed:  6,
+                                  flip_horizontally:  false,
+                                  flip_vertically:    false },
+                  jumping_down: { file:   '/assets/sprites/hero_jump.png',
+                                  frames: [ [4,0], [5,0], [6,0] ],
+                                  mode:   :once,
+                                  speed:  6,
+                                  flip_horizontally:  false,
+                                  flip_vertically:    false },
+                  death:        { file:   '/assets/sprites/hero_death.png',
+                                  frames: [ [0,0], [1,0], [2,0] ],
+                                  mode:   :once,
+                                  speed:  12,
+                                  flip_horizontally:  false,
+                                  flip_vertically:    false }}
 
-    animation         = Animation.new size[0], size[1], # width and height
-                                      frames,           # frames
-                                      :idle             # first animation
+    animation = Animation.new size[0], size[1], # width and height
+                              frames,           # frames
+                              :idle             # first animation
 
 
     # ---=== FINITE STATE MACHINE : ===---
