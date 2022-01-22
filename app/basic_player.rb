@@ -1,5 +1,5 @@
 module Player
-  def self.spawn_basic_player_at(size,start_x,start_y,health)
+  def self.spawn_basic_player_at(size,start_position,health)
     
     # ---=== ANIMATION : ===---
     frames    = { idle:         { file:   '/assets/sprites/hero_idle.png',
@@ -175,8 +175,7 @@ module Player
     Platformer::Player.new  animation,
                             fsm,
                             size,
-                            start_x,
-                            start_y,
+                            [ start_position[0] + size[0] / 2, start_position[1] - size[1] / 2 ],
                             health
 
   end

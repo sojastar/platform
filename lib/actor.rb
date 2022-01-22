@@ -9,7 +9,7 @@ module Platformer
                   :facing_right
   
     # ---=== INITIALISATION : ===---
-    def initialize(animation,fsm,size,start_x,start_y,health)
+    def initialize(animation,fsm,size,start_position,health)
       @animation    = animation
       
       @machine      = fsm
@@ -17,7 +17,7 @@ module Platformer
 
       @size         = size
   
-      @x, @y        = start_x, start_y
+      @x, @y        = start_position
       @dx         ||= 0.0
       @dy         ||= 0.0
 

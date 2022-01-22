@@ -36,8 +36,7 @@ def setup(args)
 
   size                  = args.state.sector.tileset.tile_size
   args.state.player     = Player::spawn_basic_player_at [ size, size ],
-                                                        args.state.sector.current_room.start_x,
-                                                        args.state.sector.current_room.start_y,
+                                                        args.state.sector.current_room.start_position,
                                                         3
 
   args.state.debug      = false

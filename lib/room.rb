@@ -5,7 +5,8 @@ module Platformer
                 :tile_width, :tile_height,
                 :tiles,
                 :pixel_width, :pixel_height,
-                :start_x, :start_y,
+                #:start_x, :start_y,
+                :start_position,
                 :exits,
                 :animated_tiles,
                 :actors
@@ -31,10 +32,11 @@ module Platformer
       @animated_tiles = []
       @actors         = []
 
-      @start_x        = 0
-      @start_y        = 0
+      @start_position = [ 0, 0 ]
+      #@start_x        = 0
+      #@start_y        = 0
 
-      @last_entry_point = [0, 0]
+      @last_entry_point = [ 0, 0, true ]
 
       json_data['layerInstances'].each do |layer|
         case layer['__identifier']
@@ -42,9 +44,12 @@ module Platformer
           layer['entityInstances'].each do |spawn_point|
             case spawn_point['__identifier']
             when 'PlayerSpawn'
-              @start_x          = spawn_point['px'][0]
-              @start_y          = @pixel_height - spawn_point['px'][1]
-              @last_entry_point = [ @start_x, @start_y ]
+              #@start_x          = spawn_point['px'][0]
+              #@start_y          = @pixel_height - spawn_point['px'][1]
+              start_x           = spawn_point['px'][0]
+              start_y           = @pixel_height - spawn_point['px'][1]
+              @start_position   = [ start_x, start_y ]
+              @last_entry_point = [ start_x, start_y, true ]
 
             when 'ActorSpawn'
               spawn_x = spawn_point['px'][0]

@@ -3,8 +3,8 @@ module Platformer
     attr_reader :death_tick
 
     # ---=== INITIALISATION : ===---
-    def initialize(animation,fsm,size,start_x,start_y,health)
-      super animation, fsm, size, start_x, start_y, health
+    def initialize(animation,fsm,size,start_position,health)
+      super animation, fsm, size, start_position, health
 
       @actor_collisions = []
       @item_collisions  = []
