@@ -24,12 +24,6 @@ module Platformer
       @facing_right = true
 
       @health       = health
-  
-      # For replays :
-      @moves        = []
-      @mode         = :play
-      @replay_head  = 0
-      @replay_speed = MAX_REPLAY_LENGTH
     end
   
   
