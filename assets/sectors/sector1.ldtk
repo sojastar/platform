@@ -512,13 +512,7 @@
 			"spacing": 0,
 			"padding": 0,
 			"tagsSourceEnumUid": 17,
-			"enumTags": [
-				{ "enumValueId": "Empty", "tileIds": [25,26,54,55,61,62,63] },
-				{ "enumValueId": "Wall", "tileIds": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20,21,22,23,27,28,29,30,31,38,39,40,42,48,50,56,57,58] },
-				{ "enumValueId": "Platform", "tileIds": [16,17,18,24] },
-				{ "enumValueId": "Lader", "tileIds": [32,33] },
-				{ "enumValueId": "Water", "tileIds": [41,43,49,51] }
-			],
+			"enumTags": [ { "enumValueId": "Empty", "tileIds": [25,26,54,55,61,62,63] }, { "enumValueId": "Wall", "tileIds": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20,21,22,23,27,28,29,30,31,38,39,40,42,48,50,56,57,58] }, { "enumValueId": "Platform", "tileIds": [16,17,18,24,32,33] }, { "enumValueId": "Water", "tileIds": [41,43,49,51] } ],
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
@@ -530,7 +524,6 @@
 		{ "id": "Empty", "tileId": null, "color": 0, "__tileSrcRect": null },
 		{ "id": "Wall", "tileId": null, "color": 16711680, "__tileSrcRect": null },
 		{ "id": "Platform", "tileId": null, "color": 16769280, "__tileSrcRect": null },
-		{ "id": "Lader", "tileId": null, "color": 65346, "__tileSrcRect": null },
 		{ "id": "Water", "tileId": null, "color": 18687, "__tileSrcRect": null }
 	], "iconTilesetUid": 1, "externalRelPath": null, "externalFileChecksum": null }], "externalEnums": [], "levelFields": [] },
 	"levels": [
@@ -712,6 +705,22 @@
 									}]
 								},
 								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "Exit",
+							"__grid": [0,3],
+							"__pivot": [0,1],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 6,
+							"px": [0,32],
+							"fieldInstances": [
+								{ "__identifier": "room", "__value": null, "__type": "String", "defUid": 10, "realEditorValues": [] },
+								{ "__identifier": "orientation", "__value": null, "__type": "String", "defUid": 14, "realEditorValues": [] },
+								{ "__identifier": "x", "__value": 0, "__type": "Int", "defUid": 15, "realEditorValues": [] },
+								{ "__identifier": "y", "__value": 0, "__type": "Int", "defUid": 16, "realEditorValues": [] }
 							]
 						}
 					]
