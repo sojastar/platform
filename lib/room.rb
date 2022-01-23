@@ -245,8 +245,12 @@ module Platformer
 
     def reset(player)
       player.reset @last_entry_point
-      @actors.each  { |actor| actor.reset }
-      @items.each   { |item| item.reset unless item.single && player.owned_items[item.type] >= 1 }
+      @actors.each { |actor| actor.reset }
+      @items.each do |item|
+        item.reset unless item.single                             &&
+                          player.owned_items.has_key?(item.type)  &&
+                          player.owned_items[item.type] >= 1
+      end
     end
 
 
