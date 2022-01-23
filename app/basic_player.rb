@@ -79,7 +79,6 @@ module Player
                   end
 
                   add_event(next_state: :death) do |args|
-
                     !@actor_collisions.empty?
                   end
                 end

@@ -3,10 +3,12 @@ module Platformer
     MAX_REPLAY_LENGTH = 32
   
     attr_sprite
-    attr_accessor :dx, :dy,
-                  :machine,
-                  :animation,
-                  :facing_right
+    attr_accessor :dx, :dy
+
+    attr_reader :machine,
+                :animation,
+                :facing_right,
+                :is_enabled
   
     # ---=== INITIALISATION : ===---
     def initialize(animation,fsm,size,start_position,health)
@@ -23,6 +25,8 @@ module Platformer
 
       @facing_right = true
 
+      @is_enabled   = true
+
       @health       = health
     end
   
@@ -36,6 +40,9 @@ module Platformer
     def current_state
       @machine.current_state
     end
+
+    def enable()  @is_enabled = true  end
+    def disable() @is_enabled = false end
   
   
     # ---=== COLLISIONS : ===---

@@ -14,10 +14,13 @@ require 'lib/actor.rb'
 require 'lib/collisions.rb'
 require 'lib/player.rb'
 require 'lib/monster.rb'
+require 'lib/item.rb'
 
 # --- 1.2. Game Specific :
 require 'app/basic_player.rb'
 require 'app/zombie.rb'
+require 'app/ruby.rb'
+require 'app/talisman.rb'
 
 
 

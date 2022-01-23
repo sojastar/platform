@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 36,
+	"nextUid": 39,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -142,7 +142,7 @@
 					"arrayMaxLength": null,
 					"editorDisplayMode": "NameAndValue",
 					"editorDisplayPos": "Center",
-					"editorAlwaysShow": false,
+					"editorAlwaysShow": true,
 					"editorCutLongValues": true,
 					"min": null,
 					"max": null,
@@ -360,9 +360,9 @@
 					"canBeNull": true,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
-					"editorDisplayMode": "Hidden",
-					"editorDisplayPos": "Above",
-					"editorAlwaysShow": false,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Center",
+					"editorAlwaysShow": true,
 					"editorCutLongValues": true,
 					"min": null,
 					"max": null,
@@ -429,6 +429,72 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": { "id": "V_Float", "params": [1] },
+					"textLanguageMode": null
+				}
+			]
+		},
+		{
+			"identifier": "Item",
+			"uid": 36,
+			"tags": [],
+			"width": 8,
+			"height": 8,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#FFC900",
+			"renderMode": "Ellipse",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "Stretch",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "type",
+					"__type": "String",
+					"uid": 37,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayPos": "Center",
+					"editorAlwaysShow": true,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "single",
+					"__type": "Bool",
+					"uid": 38,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
 					"textLanguageMode": null
 				}
 			]
@@ -568,6 +634,84 @@
 									"defUid": 35,
 									"realEditorValues": [{ "id": "V_Float", "params": [0.05] }]
 								}
+							]
+						},
+						{
+							"__identifier": "Item",
+							"__grid": [9,4],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 36,
+							"px": [72,32],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "ruby",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["ruby"]
+									}]
+								},
+								{
+									"__identifier": "single",
+									"__value": false,
+									"__type": "Bool",
+									"defUid": 38,
+									"realEditorValues": [{
+										"id": "V_Bool",
+										"params": [ false ]
+									}]
+								}
+							]
+						},
+						{
+							"__identifier": "Item",
+							"__grid": [10,4],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 36,
+							"px": [80,32],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "ruby",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["ruby"]
+									}]
+								},
+								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "Item",
+							"__grid": [11,4],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 36,
+							"px": [88,32],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "ruby",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["ruby"]
+									}]
+								},
+								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
 							]
 						}
 					]
@@ -1384,19 +1528,35 @@
 							]
 						},
 						{
-							"__identifier": "Exit",
-							"__grid": [10,9],
-							"__pivot": [0,1],
+							"__identifier": "Item",
+							"__grid": [1,2],
+							"__pivot": [0,0],
 							"__tile": null,
 							"width": 8,
 							"height": 8,
-							"defUid": 6,
-							"px": [80,80],
+							"defUid": 36,
+							"px": [8,16],
 							"fieldInstances": [
-								{ "__identifier": "room", "__value": null, "__type": "String", "defUid": 10, "realEditorValues": [] },
-								{ "__identifier": "orientation", "__value": null, "__type": "String", "defUid": 14, "realEditorValues": [] },
-								{ "__identifier": "x", "__value": 0, "__type": "Int", "defUid": 15, "realEditorValues": [] },
-								{ "__identifier": "y", "__value": 0, "__type": "Int", "defUid": 16, "realEditorValues": [] }
+								{
+									"__identifier": "type",
+									"__value": "talisman",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["talisman"]
+									}]
+								},
+								{
+									"__identifier": "single",
+									"__value": true,
+									"__type": "Bool",
+									"defUid": 38,
+									"realEditorValues": [{
+										"id": "V_Bool",
+										"params": [ true ]
+									}]
+								}
 							]
 						}
 					]
@@ -1870,7 +2030,123 @@
 					"seed": 8826756,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Item",
+							"__grid": [6,8],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 36,
+							"px": [48,64],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "ruby",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["ruby"]
+									}]
+								},
+								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "Item",
+							"__grid": [6,7],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 36,
+							"px": [48,56],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "ruby",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["ruby"]
+									}]
+								},
+								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "Item",
+							"__grid": [6,6],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 36,
+							"px": [48,48],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "ruby",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["ruby"]
+									}]
+								},
+								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "Item",
+							"__grid": [6,5],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 36,
+							"px": [48,40],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "ruby",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["ruby"]
+									}]
+								},
+								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
+							]
+						},
+						{
+							"__identifier": "Item",
+							"__grid": [6,4],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 36,
+							"px": [48,32],
+							"fieldInstances": [
+								{
+									"__identifier": "type",
+									"__value": "ruby",
+									"__type": "String",
+									"defUid": 37,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["ruby"]
+									}]
+								},
+								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
+							]
+						}
+					]
 				},
 				{
 					"__identifier": "Animated_Tiles",

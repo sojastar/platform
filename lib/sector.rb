@@ -41,9 +41,12 @@ module Platformer
 
     def move_to_room(name,player,x,y)
       @current_room = name
+
+      player.add_collected_to_owned
       player.x = x
       player.y = y
       @rooms[@current_room].last_entry_point  = [ x, y, player.facing_right ]
+      @rooms[@current_room].reset(player)
     end
 
 

@@ -5,11 +5,11 @@ module Platformer
                 :tile_width, :tile_height,
                 :tiles,
                 :pixel_width, :pixel_height,
-                #:start_x, :start_y,
                 :start_position,
                 :exits,
                 :animated_tiles,
-                :actors
+                :actors,
+                :items
 
     attr_accessor :last_entry_point
 
@@ -31,10 +31,9 @@ module Platformer
       @exits          = []
       @animated_tiles = []
       @actors         = []
+      @items          = []
 
       @start_position = [ 0, 0 ]
-      #@start_x        = 0
-      #@start_y        = 0
 
       @last_entry_point = [ 0, 0, true ]
 
@@ -44,8 +43,6 @@ module Platformer
           layer['entityInstances'].each do |spawn_point|
             case spawn_point['__identifier']
             when 'PlayerSpawn'
-              #@start_x          = spawn_point['px'][0]
-              #@start_y          = @pixel_height - spawn_point['px'][1]
               start_x           = spawn_point['px'][0]
               start_y           = @pixel_height - spawn_point['px'][1]
               @start_position   = [ start_x, start_y ]
@@ -67,6 +64,17 @@ module Platformer
                                                             health,
                                                             path,
                                                             speed )
+
+            when 'Item'
+              place_x = spawn_point['px'][0]
+              place_y = @pixel_height - spawn_point['px'][1]
+              type    = extract_field_value(spawn_point['fieldInstances'], 'type').capitalize
+              single  = extract_field_value(spawn_point['fieldInstances'], 'single')
+
+              @items << Object::const_get(type).place_at( [ place_x, place_y ],
+                                                          [ @tile_size, @tile_size ],
+                                                          single )
+
             end
 
           end
@@ -230,11 +238,15 @@ module Platformer
 
       # Actors :
       @actors.each { |actor| actor.update args, self }
+
+      # Items :
+      @items.each { |item| item.update args }
     end
 
     def reset(player)
       player.reset @last_entry_point
-      @actors.each { |actor| actor.reset }
+      @actors.each  { |actor| actor.reset }
+      @items.each   { |item| item.reset unless item.single && player.owned_items[item.type] >= 1 }
     end
 
 
@@ -260,7 +272,10 @@ module Platformer
                                             end
 
       # Actors :
-      args.render_target(:final).sprites << @actors.map { |actor| actor.render(args) }
+      args.render_target(:final).sprites << @actors.map { |actor| actor.render(args) if actor.is_enabled }
+
+      # Items :
+      args.render_target(:final).sprites << @items.map { |item| item.render(args) if item.is_enabled }
 
       # Player :
       args.render_target(:final).sprites << player.render(args) 

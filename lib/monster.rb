@@ -27,6 +27,8 @@ module Platformer
       @x, @y      = @path[0][0], @path[0][1]
 
       @machine.start
+
+      enable
     end
 
     # ---=== PATH : ===---
