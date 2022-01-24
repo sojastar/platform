@@ -64,7 +64,9 @@ module Platformer
             when :wall
               rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
             when :platform
-              rects << [ column * tile_size, row * tile_size, tile_size, tile_size ] if ( @dy <= 0 && (@y - @animation.height / 2) >= (row + 1) * room.sector.tileset.tile_size )
+              if ( @dy <= 0 && (@y - @animation.height / 2) >= (row + 1) * tile_size )
+                rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
+              end
             end
           end
         end
