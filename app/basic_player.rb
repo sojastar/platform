@@ -42,7 +42,6 @@ module Player
     fsm     = FSM::new_machine(nil) do
 
                 define_update do |args|
-                    #puts @y % size[1] 
                   if current_state != :death then
                     # --- Player input :
                     if    args.inputs.keyboard.key_held.right then
@@ -109,6 +108,11 @@ module Player
                    !args.inputs.keyboard.key_held.down
                   end
 
+                  add_event(next_state: :jumping_through) do |args|
+                    args.inputs.keyboard.key_held.space &&
+                    args.inputs.keyboard.key_held.down
+                  end
+
                   add_event(next_state: :death) do |args|
                     !@actor_collisions.empty?
                   end
@@ -131,6 +135,11 @@ module Player
                   add_event(next_state: :jumping_up) do |args|
                     args.inputs.keyboard.key_down.space &&
                    !args.inputs.keyboard.key_held.down
+                  end
+
+                  add_event(next_state: :jumping_through) do |args|
+                    args.inputs.keyboard.key_held.space &&
+                    args.inputs.keyboard.key_held.down
                   end
 
                   add_event(next_state: :death) do |args|
