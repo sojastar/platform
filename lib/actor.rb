@@ -24,6 +24,7 @@ module Platformer
       @dy         ||= 0.0
 
       @facing_right = true
+      #@jumping_down = false
 
       @is_enabled   = true
 
@@ -64,7 +65,7 @@ module Platformer
             when :wall
               rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
             when :platform
-              if ( @dy <= 0 && (@y - @animation.height / 2) >= (row + 1) * tile_size )
+              if  ( @dy <= 0 && (@y - @animation.height / 2) >= (row + 1) * tile_size )
                 rects << [ column * tile_size, row * tile_size, tile_size, tile_size ]
               end
             end

@@ -42,6 +42,7 @@ module Player
     fsm     = FSM::new_machine(nil) do
 
                 define_update do |args|
+                    #puts @y % size[1] 
                   if current_state != :death then
                     # --- Player input :
                     if    args.inputs.keyboard.key_held.right then
@@ -66,16 +67,22 @@ module Player
                     @dx = 0
                   end
 
-                  add_event(next_state: :jumping_up) do |args|
-                    args.inputs.keyboard.key_down.space
-                  end
-
                   add_event(next_state: :walking_left) do |args|
                     args.inputs.keyboard.key_held.left
                   end
 
                   add_event(next_state: :walking_right) do |args|
                     args.inputs.keyboard.key_held.right
+                  end
+
+                  add_event(next_state: :jumping_up) do |args|
+                    args.inputs.keyboard.key_down.space &&
+                   !args.inputs.keyboard.key_held.down
+                  end
+
+                  add_event(next_state: :jumping_through) do |args|
+                    args.inputs.keyboard.key_held.space &&
+                    args.inputs.keyboard.key_held.down
                   end
 
                   add_event(next_state: :death) do |args|
@@ -98,7 +105,8 @@ module Player
                   end
 
                   add_event(next_state: :jumping_up) do |args|
-                    args.inputs.keyboard.key_down.space
+                    args.inputs.keyboard.key_down.space &&
+                   !args.inputs.keyboard.key_held.down
                   end
 
                   add_event(next_state: :death) do |args|
@@ -121,7 +129,8 @@ module Player
                   end
 
                   add_event(next_state: :jumping_up) do |args|
-                    args.inputs.keyboard.key_down.space
+                    args.inputs.keyboard.key_down.space &&
+                   !args.inputs.keyboard.key_held.down
                   end
 
                   add_event(next_state: :death) do |args|
@@ -147,6 +156,21 @@ module Player
                 add_state(:jumping_down) do
                   define_setup do
                     @animation.set_clip :jumping_down
+                  end
+
+                  add_event(next_state: :idle) do |args|
+                    @dy == 0
+                  end
+
+                  add_event(next_state: :death) do |args|
+                    !@actor_collisions.empty?
+                  end
+                end
+
+                add_state(:jumping_through) do |args|
+                  define_setup do
+                    @animation.set_clip :jumping_down
+                    @y -= 1
                   end
 
                   add_event(next_state: :idle) do |args|

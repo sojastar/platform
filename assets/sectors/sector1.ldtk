@@ -706,22 +706,6 @@
 								},
 								{ "__identifier": "single", "__value": false, "__type": "Bool", "defUid": 38, "realEditorValues": [] }
 							]
-						},
-						{
-							"__identifier": "Exit",
-							"__grid": [0,3],
-							"__pivot": [0,1],
-							"__tile": null,
-							"width": 8,
-							"height": 8,
-							"defUid": 6,
-							"px": [0,32],
-							"fieldInstances": [
-								{ "__identifier": "room", "__value": null, "__type": "String", "defUid": 10, "realEditorValues": [] },
-								{ "__identifier": "orientation", "__value": null, "__type": "String", "defUid": 14, "realEditorValues": [] },
-								{ "__identifier": "x", "__value": 0, "__type": "Int", "defUid": 15, "realEditorValues": [] },
-								{ "__identifier": "y", "__value": 0, "__type": "Int", "defUid": 16, "realEditorValues": [] }
-							]
 						}
 					]
 				},
