@@ -7,6 +7,7 @@ require_relative  '../lib/tileset.rb'
 require_relative  '../lib/room.rb'
 require_relative  '../lib/sector.rb'
 #require_relative  '../lib/utilities.rb'
+require_relative  '../lib/path.rb'
 
 class GTK
   attr_accessor :args
