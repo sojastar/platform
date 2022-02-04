@@ -6,7 +6,8 @@ module FSM
       @name       = name
 
       @setup      = nil
-      @action     = nil
+      @update     = nil
+      @exit       = nil
       @events     = []
 
       if configuration_block.nil? then
@@ -38,6 +39,16 @@ module FSM
       end
     end
 
+    def define_exit(&block)
+      if block.nil? then
+        raise "ERROR: define_update called withouth a block for state #{@name}"
+
+      else
+        @exit = block
+
+      end
+    end
+
     def add_event(next_state:,&block)
       if block.nil? then
         raise "add_event called withouth a block for state #{@name}"
@@ -51,7 +62,10 @@ module FSM
 
     def update(object,args)
       @events.each do |event|
-        return event[:next_state] if object.instance_exec(args, &event[:check]) 
+        if object.instance_exec(args, &event[:check]) then
+          object.instance_exec(args, &@exit) unless @exit.nil?
+          return event[:next_state] 
+        end
       end
 
       object.instance_exec(args, &@update) unless @update.nil?

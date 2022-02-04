@@ -1,7 +1,7 @@
 module Platformer
   class Monster < Actor
     # ---=== INITIALIZE : ===---
-    def initialize(animation,fsm,size,start_position,health,path,speed) 
+    def initialize(animation,fsm,size,start_position,health,path) 
       super animation, fsm, size, start_position, health
 
       @path = path

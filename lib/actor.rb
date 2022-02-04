@@ -24,7 +24,6 @@ module Platformer
       @dy         ||= 0.0
 
       @facing_right = true
-      #@jumping_down = false
 
       @is_enabled   = true
 

@@ -10,17 +10,21 @@ require 'lib/keymap.rb'
 require 'lib/tileset.rb'
 require 'lib/room.rb'
 require 'lib/sector.rb'
+require 'lib/path.rb'
 require 'lib/actor.rb'
 require 'lib/collisions.rb'
 require 'lib/player.rb'
 require 'lib/monster.rb'
 require 'lib/item.rb'
+require 'lib/path.rb'
+require 'lib/platform.rb'
 
 # --- 1.2. Game Specific :
 require 'app/basic_player.rb'
 require 'app/zombie.rb'
 require 'app/ruby.rb'
 require 'app/talisman.rb'
+require 'app/platform1x1.rb'
 
 
 

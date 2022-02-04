@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 45,
+	"nextUid": 49,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -460,7 +460,7 @@
 				{
 					"identifier": "type",
 					"__type": "String",
-					"uid": 42,
+					"uid": 46,
 					"type": "F_String",
 					"isArray": false,
 					"canBeNull": true,
@@ -502,6 +502,46 @@
 					"__type": "Float",
 					"uid": 41,
 					"type": "F_Float",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "pause",
+					"__type": "Float",
+					"uid": 45,
+					"type": "F_Float",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				},
+				{
+					"identifier": "loop",
+					"__type": "LocalEnum.Loop",
+					"uid": 48,
+					"type": { "id": "F_Enum", "params": [47] },
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -606,12 +646,19 @@
 				"averageColors": "fa65f885f885f875f695f795f965f965f875f875f875f865f965f955f965f965f752f752f752fa65fa65f965f885f875f863f632f642f955f955f955f975f975f863f8530000000000000000f975f975f885f8bef885f8be0000000000000000fa66f8bffa66f8bf00000000f112f112f955f966f95500000000f112f112f112"
 			}
 		}
-	], "enums": [{ "identifier": "Tile_Type", "uid": 17, "values": [
-		{ "id": "Empty", "tileId": null, "color": 0, "__tileSrcRect": null },
-		{ "id": "Wall", "tileId": null, "color": 16711680, "__tileSrcRect": null },
-		{ "id": "Platform", "tileId": null, "color": 16769280, "__tileSrcRect": null },
-		{ "id": "Water", "tileId": null, "color": 18687, "__tileSrcRect": null }
-	], "iconTilesetUid": 1, "externalRelPath": null, "externalFileChecksum": null }], "externalEnums": [], "levelFields": [] },
+	], "enums": [
+		{ "identifier": "Tile_Type", "uid": 17, "values": [
+			{ "id": "Empty", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "Wall", "tileId": null, "color": 16711680, "__tileSrcRect": null },
+			{ "id": "Platform", "tileId": null, "color": 16769280, "__tileSrcRect": null },
+			{ "id": "Water", "tileId": null, "color": 18687, "__tileSrcRect": null }
+		], "iconTilesetUid": 1, "externalRelPath": null, "externalFileChecksum": null },
+		{ "identifier": "Loop", "uid": 47, "values": [
+			{ "id": "Once", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "Loop", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "PingPong", "tileId": null, "color": 0, "__tileSrcRect": null }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
+	], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{
 			"identifier": "Room0",
@@ -2614,7 +2661,67 @@
 					"seed": 1442960,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "PlatformSpawn",
+							"__grid": [10,3],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 8,
+							"height": 8,
+							"defUid": 40,
+							"px": [80,24],
+							"fieldInstances": [
+								{
+									"__identifier": "speed",
+									"__value": 0.05,
+									"__type": "Float",
+									"defUid": 41,
+									"realEditorValues": [{ "id": "V_Float", "params": [0.05] }]
+								},
+								{
+									"__identifier": "path",
+									"__value": [ { "cx": 12, "cy": 3 }, { "cx": 8, "cy": 3 } ],
+									"__type": "Array<Point>",
+									"defUid": 44,
+									"realEditorValues": [ {
+										"id": "V_String",
+										"params": ["12,3"]
+									}, {
+										"id": "V_String",
+										"params": ["8,3"]
+									} ]
+								},
+								{
+									"__identifier": "pause",
+									"__value": 60,
+									"__type": "Float",
+									"defUid": 45,
+									"realEditorValues": [{ "id": "V_Float", "params": [60] }]
+								},
+								{
+									"__identifier": "type",
+									"__value": "platform1x1",
+									"__type": "String",
+									"defUid": 46,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["platform1x1"]
+									}]
+								},
+								{
+									"__identifier": "loop",
+									"__value": "PingPong",
+									"__type": "LocalEnum.Loop",
+									"defUid": 48,
+									"realEditorValues": [{
+										"id": "V_String",
+										"params": ["PingPong"]
+									}]
+								}
+							]
+						}
+					]
 				},
 				{
 					"__identifier": "Animated_Tiles",

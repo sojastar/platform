@@ -57,7 +57,7 @@ class Zombie
                             size,
                             [ spawn[0] + size[0] / 2, spawn[1] - size[1] / 2 ],
                             health,
-                            path,
-                            speed
+                            path#,
+                            #speed
   end
 end
