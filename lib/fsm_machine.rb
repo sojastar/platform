@@ -57,14 +57,14 @@ module FSM
     end
 
     def update(args)
-      new_state       = @states[@current_state].update @parent, args
+      update = @states[@current_state].update @parent, args
 
-      if new_state != @current_state then
-        if @states.keys.include? new_state then
-          set_current_state new_state
+      if update[:change] then
+        if @states.keys.include? update[:state] then
+          set_current_state update[:state]
 
         else
-          raise "state :#{new_state} does not exist for object #{@parent}"
+          raise "state :#{update[:state]} does not exist for object #{@parent}"
 
         end
       end

@@ -64,13 +64,13 @@ module FSM
       @events.each do |event|
         if object.instance_exec(args, &event[:check]) then
           object.instance_exec(args, &@exit) unless @exit.nil?
-          return event[:next_state] 
+          return { change: true, state: event[:next_state] }
         end
       end
 
       object.instance_exec(args, &@update) unless @update.nil?
 
-      return @name
+      return { change: false, state: @name }
     end
   end
 end

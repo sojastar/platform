@@ -12,7 +12,7 @@ module Platformer
 
     # ---=== UPDATE : ===---
     def update(args,room)
-  
+
       # --- 1. Updating state :
       super(args)
   

@@ -215,10 +215,18 @@ module Platformer
     # ---=== UPDATE : ===---
     def update(args,player)
 
+      # Platforms :
+      @platforms.each { |platform| platform.update args, self }
+
       # Player :
       player.update args, self
-
       reset(player) if player.is_dead? && args.state.tick_count - player.death_tick >= RESPAWN_TIME
+
+      # Actors :
+      @actors.each { |actor| actor.update args, self }
+
+      # Items :
+      @items.each { |item| item.update args }
 
       # Exits :
       @exits.each do |exit_data|
@@ -253,15 +261,6 @@ module Platformer
           tile[:current_step] = ( tile[:current_step] + 1 ) % tile[:steps].length
         end
       end
-
-      # Actors :
-      @actors.each { |actor| actor.update args, self }
-
-      # Platforms :
-      @platforms.each { |platform| platform.update args, self }
-
-      # Items :
-      @items.each { |item| item.update args }
     end
 
     def reset(player)
